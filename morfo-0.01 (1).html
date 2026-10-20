@@ -225,6 +225,98 @@ footer a:not(.brand):hover{color:var(--oro-luz)}
  .btn:before{display:none}
 }
 
+
+/* ===== Sistema cromático MORFO: vino de colección ===== */
+:root{
+  --vino:#5A1028;
+  --vino-profundo:#350817;
+  --vino-rico:#76213D;
+  --vino-luz:#A64C65;
+  --vino-polvo:#E7D8D9;
+  --vino-vidrio:rgba(90,16,40,.28);
+}
+::selection{background:var(--vino);color:#fff8f0}
+.ver{
+  background:linear-gradient(90deg,#260611 0%,#431024 48%,#260611 100%);
+  border-bottom:1px solid rgba(201,166,92,.2);
+}
+header.top{border-bottom-color:rgba(166,76,101,.35)}
+nav a:after{background:linear-gradient(90deg,var(--vino-luz),var(--oro-luz))}
+.lang button[aria-pressed=true]{background:var(--vino);border-color:var(--oro);color:#fff8f0}
+.hero{
+  background:
+    radial-gradient(ellipse at 80% 44%,rgba(118,33,61,.42),transparent 38%),
+    radial-gradient(ellipse at 7% 100%,rgba(90,16,40,.28),transparent 43%),
+    linear-gradient(118deg,#211d20 0%,#292327 48%,#211d20 100%);
+}
+.hero:before{
+  background:
+    radial-gradient(420px circle at var(--pointer-x,75%) var(--pointer-y,45%),rgba(201,166,92,.10),transparent 72%),
+    radial-gradient(ellipse at 92% 8%,rgba(166,76,101,.12),transparent 45%);
+}
+.eyebrow{color:#d9a8b5!important}
+.eyebrow:before{background:linear-gradient(90deg,var(--vino-luz),var(--oro))}
+.hero .btn,.btn{
+  background:linear-gradient(115deg,var(--vino-profundo),var(--vino) 58%,#6a1935);
+  border-color:rgba(201,166,92,.8);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+}
+.hero .btn:hover,.btn:hover{
+  background:linear-gradient(115deg,#4a0b20,var(--vino-rico));
+  box-shadow:0 14px 32px rgba(53,8,23,.25),0 0 0 1px rgba(201,166,92,.12);
+}
+.btn.ghost{background:transparent}
+.hero-logo:before{border-color:rgba(166,76,101,.32);box-shadow:0 0 65px rgba(90,16,40,.12)}
+.hero-signature{color:#c7a9ad}
+.signature-line{background:linear-gradient(90deg,var(--vino-luz),var(--oro),transparent)}
+#destacada{
+  background:linear-gradient(110deg,#f8f5ef 0%,#f8f5ef 65%,#f0e5e5 100%);
+}
+#destacada .frame:before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:linear-gradient(145deg,rgba(90,16,40,.05),transparent 42%,rgba(201,166,92,.08));
+}
+#obras{background:linear-gradient(135deg,#eee8de 0%,#eee8de 72%,#e9dfe0 100%)!important}
+.card{position:relative}
+.card h3{transition:color .35s ease,transform .45s var(--ease-luxe)}
+.card:hover h3{color:var(--vino);transform:translateX(3px)}
+.card p{transition:color .35s ease}
+.card:hover p{color:#5b4148}
+.badge{border-color:var(--vino-rico);color:var(--vino);background:rgba(90,16,40,.035)}
+#artista{
+  background:
+    radial-gradient(ellipse at 7% 16%,rgba(118,33,61,.34),transparent 42%),
+    radial-gradient(ellipse at 96% 92%,rgba(90,16,40,.25),transparent 40%),
+    linear-gradient(120deg,#272326,#2b2428 60%,#211d20);
+}
+blockquote{border-left-color:var(--vino-luz)}
+#subastas .empty{
+  border-color:rgba(90,16,40,.28);
+  background:linear-gradient(125deg,rgba(90,16,40,.055),rgba(255,255,255,.32) 65%);
+  box-shadow:0 18px 45px rgba(53,8,23,.035);
+}
+summary:after{color:var(--vino-rico)}
+details[open]{border-color:var(--vino-rico)}
+#contacto{
+  background:
+    radial-gradient(ellipse at 88% 18%,rgba(118,33,61,.36),transparent 39%),
+    radial-gradient(ellipse at 0% 100%,rgba(90,16,40,.22),transparent 42%),
+    #252225;
+}
+input:focus,textarea:focus,select:focus{
+  border-color:var(--vino-rico);
+  box-shadow:0 0 0 3px rgba(90,16,40,.12);
+}
+#reading-progress{background:linear-gradient(90deg,var(--vino-profundo),var(--vino-luz),var(--oro-luz))}
+footer{
+  background:linear-gradient(110deg,#201b1e,#2a2025 70%,#241b20);
+  border-top-color:rgba(166,76,101,.35);
+}
+footer a:not(.brand):hover{color:#d9a8b5}
+@media(prefers-reduced-motion:reduce){
+  .card h3,.card p{transition:none}
+}
+
 </style>
 </head>
 <body>
