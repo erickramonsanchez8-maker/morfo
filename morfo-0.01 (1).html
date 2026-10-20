@@ -1083,6 +1083,63 @@ applyLang();
       hero.style.setProperty('--pointer-y',(e.clientY-r.top)+'px');
     },{passive:true});
   }
+
+  /* Visor cinematografico accesible; usa exclusivamente fotos reales declaradas en WORKS.images. */
+  const viewer=document.getElementById('art-viewer');
+  const viewerImg=document.getElementById('viewer-image');
+  const viewerTitle=document.getElementById('viewer-title');
+  const viewerMeta=document.getElementById('viewer-meta');
+  const viewerCounter=document.getElementById('viewer-counter');
+  const viewerHint=document.getElementById('viewer-hint');
+  const viewerPrev=document.getElementById('viewer-prev');
+  const viewerNext=document.getElementById('viewer-next');
+  let viewerItems=[],viewerIndex=0,viewerReturnFocus=null;
+  const refreshViewerItems=()=>{viewerItems=WORKS.flatMap(w=>w.images.map((src,imageIndex)=>({w,src,imageIndex})));};
+  const showViewerItem=()=>{
+    const item=viewerItems[viewerIndex];if(!item)return;
+    viewerImg.classList.remove('is-zoomed');viewerImg.src=item.src;viewerImg.alt=item.w.title;
+    viewerTitle.textContent=item.w.title;viewerMeta.textContent=L(item.w.tech)+' · '+L(item.w.year);
+    viewerCounter.textContent=String(viewerIndex+1).padStart(2,'0')+' / '+String(viewerItems.length).padStart(2,'0');
+    viewerPrev.hidden=viewerItems.length<2;viewerNext.hidden=viewerItems.length<2;
+    viewerHint.textContent=t('viewer_hint');
+    document.getElementById('viewer-kicker').textContent=lang==='es'?'MORFO · COLECCIÓN':'MORFO · COLLECTION';
+    document.getElementById('viewer-close').setAttribute('aria-label',lang==='es'?'Cerrar visor':'Close viewer');
+    viewerPrev.setAttribute('aria-label',lang==='es'?'Obra anterior':'Previous artwork');
+    viewerNext.setAttribute('aria-label',lang==='es'?'Obra siguiente':'Next artwork');
+  };
+  const openViewer=slug=>{
+    refreshViewerItems();const idx=viewerItems.findIndex(item=>item.w.slug===slug);if(idx<0)return;
+    viewerIndex=idx;viewerReturnFocus=document.activeElement;showViewerItem();
+    viewer.classList.add('is-open');viewer.setAttribute('aria-hidden','false');
+    document.body.classList.add('viewer-open');document.getElementById('viewer-close').focus();
+  };
+  const closeViewer=()=>{
+    viewer.classList.remove('is-open');viewer.setAttribute('aria-hidden','true');
+    document.body.classList.remove('viewer-open');viewerImg.classList.remove('is-zoomed');
+    if(viewerReturnFocus&&typeof viewerReturnFocus.focus==='function')viewerReturnFocus.focus();
+  };
+  const stepViewer=step=>{
+    if(viewerItems.length<2)return;
+    viewerIndex=(viewerIndex+step+viewerItems.length)%viewerItems.length;showViewerItem();
+  };
+  document.addEventListener('click',e=>{
+    const opener=e.target.closest&&e.target.closest('[data-art-open]');
+    if(opener){openViewer(opener.dataset.artOpen);return;}
+    if(e.target===viewer)closeViewer();
+  });
+  document.addEventListener('keydown',e=>{
+    const opener=e.target.closest&&e.target.closest('[data-art-open]');
+    if(opener&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openViewer(opener.dataset.artOpen);return;}
+    if(!viewer.classList.contains('is-open'))return;
+    if(e.key==='Escape'){e.preventDefault();closeViewer();}
+    else if(e.key==='ArrowLeft'){e.preventDefault();stepViewer(-1);}
+    else if(e.key==='ArrowRight'){e.preventDefault();stepViewer(1);}
+  });
+  document.getElementById('viewer-close').addEventListener('click',closeViewer);
+  viewerPrev.addEventListener('click',()=>stepViewer(-1));
+  viewerNext.addEventListener('click',()=>stepViewer(1));
+  viewerImg.addEventListener('click',()=>viewerImg.classList.toggle('is-zoomed'));
+
 })();
 
 </script>
