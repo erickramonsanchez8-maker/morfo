@@ -317,6 +317,50 @@ footer a:not(.brand):hover{color:#d9a8b5}
   .card h3,.card p{transition:none}
 }
 
+
+/* ===== Balance de contraste: gris mineral MORFO ===== */
+:root{
+  --gris-mineral:#777276;
+  --gris-piedra:#aaa3a2;
+  --gris-niebla:#d9d4d0;
+  --gris-carbon:#343033;
+  --gris-fondo:#e9e5e1;
+}
+#obras{
+  background:linear-gradient(125deg,#e9e5e1 0%,#e4dfdc 56%,#e9dfe0 100%)!important;
+}
+#faq{
+  background:linear-gradient(125deg,#eeebe7 0%,#e7e2df 68%,#e8dfe1 100%)!important;
+}
+#destacada{
+  background:linear-gradient(110deg,#f8f5ef 0%,#f0ece8 66%,#e8dfe1 100%);
+}
+.frame{
+  background:linear-gradient(135deg,#e2ddda 0%,#d8d1ce 100%);
+  border-color:rgba(90,16,40,.16);
+}
+#destacada .frame{
+  background:linear-gradient(145deg,#e6e0dc,#d4cdca);
+  box-shadow:0 22px 60px rgba(48,36,25,.11);
+}
+.card p,.meta{color:#70696c}
+.badge{background:rgba(255,255,255,.34)}
+#subastas .empty{
+  background:linear-gradient(125deg,rgba(90,16,40,.045),rgba(220,215,212,.52) 58%,rgba(255,255,255,.48));
+}
+#contacto{
+  background:
+    radial-gradient(ellipse at 88% 18%,rgba(118,33,61,.34),transparent 39%),
+    radial-gradient(ellipse at 0% 100%,rgba(90,16,40,.18),transparent 42%),
+    linear-gradient(120deg,#343033 0%,#292528 58%,#30272c 100%);
+}
+footer{
+  background:linear-gradient(110deg,#282528 0%,#343033 58%,#2b2328 100%);
+}
+@media(prefers-reduced-motion:reduce){
+  #destacada .frame{box-shadow:0 22px 60px rgba(48,36,25,.11)}
+}
+
 </style>
 </head>
 <body>
