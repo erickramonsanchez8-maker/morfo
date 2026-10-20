@@ -865,6 +865,15 @@ body.viewer-open{overflow:hidden}
   </div>
 </footer>
 
+
+<div class="morfo-viewer" id="art-viewer" role="dialog" aria-modal="true" aria-label="Visor de obras MORFO" aria-hidden="true" tabindex="-1">
+  <div class="viewer-shell">
+    <div class="viewer-topline"><span class="viewer-kicker" id="viewer-kicker">MORFO · COLECCIÓN</span><button class="viewer-close" type="button" id="viewer-close" aria-label="Cerrar visor">×</button></div>
+    <div class="viewer-stage" id="viewer-stage"><button class="viewer-nav viewer-prev" type="button" id="viewer-prev" aria-label="Obra anterior">‹</button><img id="viewer-image" alt=""><button class="viewer-nav viewer-next" type="button" id="viewer-next" aria-label="Obra siguiente">›</button><div class="viewer-caption"><strong id="viewer-title"></strong><span id="viewer-meta"></span></div></div>
+    <div class="viewer-footer"><span class="viewer-counter" id="viewer-counter"></span><span class="viewer-hint" id="viewer-hint"></span></div>
+  </div>
+</div>
+
 <script>
 /* ===== Textos ES / EN ===== */
 const T = {
@@ -902,7 +911,7 @@ k_msg:"Mensaje", k_btn:"Enviar mensaje",
 demo_ok:"Demostración: el formulario aún no envía nada. Tu mensaje no se guardó.", demo_err:"Completa los campos obligatorios con datos válidos.",
 l_terms:"Términos y condiciones (borrador)", l_rules:"Reglas de subasta (borrador)", l_priv:"Privacidad (borrador)", l_ship:"Envíos y devoluciones (borrador)", l_copy:"Derechos de autor y uso de imágenes (borrador)",
 l_note:"Textos legales provisionales, pendientes de revisión legal.", l_rights:"Todos los derechos reservados.",
-feat_link:"Ver ficha de la obra"
+feat_link:"Ver ficha de la obra", open_art:"Abrir obra", explore_art:"Explorar obra", viewer_hint:"Haz clic en la obra para ampliar · Esc para salir"
 },
 en:{
 ver:"MORFO STUDIO · CONTEMPORARY ART GALLERY · PRELIMINARY EDITION",
@@ -938,7 +947,7 @@ k_msg:"Message", k_btn:"Send message",
 demo_ok:"Demo: this form doesn’t send anything yet. Your message was not saved.", demo_err:"Please complete the required fields with valid data.",
 l_terms:"Terms and conditions (draft)", l_rules:"Auction rules (draft)", l_priv:"Privacy (draft)", l_ship:"Shipping and returns (draft)", l_copy:"Copyright and image use (draft)",
 l_note:"Provisional legal texts, pending legal review.", l_rights:"All rights reserved.",
-feat_link:"View work details"
+feat_link:"View work details", open_art:"Open artwork", explore_art:"Explore artwork", viewer_hint:"Click the artwork to zoom · Esc to close"
 }};
 
 /* ===== Catálogo: añadir obras aquí (luego vendrá del panel de administración) =====
@@ -962,9 +971,8 @@ const t=k=>T[lang][k]||k;
 const L=o=>typeof o==="string"?o:o[lang];
 
 function frame(w,alt){
-  return w.images.length
-    ? `<div class="frame"><img src="${w.images[0]}" alt="${alt}" loading="lazy"></div>`
-    : `<div class="frame" role="img" aria-label="${t('no_photo')}: ${w.title}"><span>${t('no_photo')}</span></div>`;
+  if(w.images.length) return '<div class="frame art-frame" data-art-open="'+w.slug+'" role="button" tabindex="0" aria-label="'+t('open_art')+': '+alt+'"><img src="'+w.images[0]+'" alt="'+alt+'" loading="lazy"><span class="frame-explore">'+t('explore_art')+'</span></div>';
+  return '<div class="frame" role="img" aria-label="'+t('no_photo')+': '+w.title+'"><span>'+t('no_photo')+'</span></div>';
 }
 function badge(w){return `<span class="badge">${t('st_'+w.status)}</span>`}
 
@@ -979,13 +987,11 @@ function renderHome(){
       <p style="margin-bottom:1.5rem">${L(w.story)}</p>
       <a class="btn" href="#/obra/${w.slug}">${t('feat_link')}</a>
     </div>`;
-  document.getElementById("catalog").innerHTML=WORKS.map(x=>`
-    <a class="card" href="#/obra/${x.slug}">
-      ${frame(x,x.title)}
-      <h3>${x.title}</h3>
-      <p>${L(x.tech)} · ${L(x.year)}</p>
-      <p style="margin-top:.4rem">${badge(x)}</p>
-    </a>`).join("");
+  document.getElementById("catalog").innerHTML=WORKS.map(x=>
+    '<article class="card">'+frame(x,x.title)+
+    '<a class="card-link" href="#/obra/'+x.slug+'"><h3>'+x.title+'</h3>'+
+    '<p>'+L(x.tech)+' · '+L(x.year)+'</p><p style="margin-top:.4rem">'+badge(x)+'</p></a></article>'
+  ).join("");
   if(window.morfoRefreshMotion) window.morfoRefreshMotion();
 }
 function renderDetail(slug){
