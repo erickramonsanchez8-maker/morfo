@@ -473,6 +473,104 @@ footer a:not(.brand):hover{color:#e7c6ce}
  #obras .card:after{transition:none!important}
 }
 
+
+/* ===== MORFO — dirección de arte editorial, edición de galería ===== */
+:root{
+ --guinda:#5A1028;--guinda-claro:#76213D;--oro:#C9A65C;
+ --carbon:#292528;--carbon-2:#1c191b;--claro:#F7F3EC;--tinta:#292427;
+ --gris:#777276;--gris-fondo:#e6e0d9;--serif:"Cormorant Garamond",Georgia,serif;
+}
+body{background:#F7F3EC}
+.ver{letter-spacing:.17em;text-transform:uppercase;font-size:.66rem;background:#1c191b;color:#d8cbb7;padding:.6rem 1rem}
+header.top{background:rgba(28,25,27,.94);border-bottom:1px solid rgba(201,166,92,.34)}
+.bar{min-height:76px}
+.brand{display:flex;align-items:center;gap:.55rem;letter-spacing:.12em}
+.brand .brand-mark{width:35px;height:35px;object-fit:contain;border-radius:50%}
+nav a{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;opacity:.86;transition:color .25s,opacity .25s}
+nav a:hover{color:#e2c887;opacity:1}
+#reading-progress{height:2px;background:linear-gradient(90deg,#5A1028,#C9A65C,#A64C65);box-shadow:0 0 10px #c9a65c55}
+.hero{
+ position:relative;isolation:isolate;color:#292427;
+ background:
+   radial-gradient(ellipse at 76% 46%,rgba(255,255,255,.82) 0%,rgba(255,255,255,0) 36%),
+   radial-gradient(ellipse at 15% 110%,rgba(90,16,40,.09),transparent 42%),
+   linear-gradient(125deg,#e8e2da 0%,#f5f0e8 48%,#e4ddd5 100%);
+ padding:clamp(4rem,8vw,7.8rem) 0 clamp(3.8rem,7vw,6.2rem);
+}
+.hero:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.2;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E")}
+.hero .wrap{grid-template-columns:1.03fr .97fr;gap:clamp(2rem,7vw,7rem);position:relative}
+.hero-copy{position:relative;z-index:2;padding:2rem 0 2rem 1.4rem}
+.hero-copy:before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(transparent,#9a7b68 18%,#9a7b68 82%,transparent)}
+.hero .eyebrow{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--guinda);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem}
+.hero .eyebrow:before{content:"";display:inline-block;width:2.4rem;height:1px;background:var(--oro-oscuro)}
+.hero h1{color:#292427;font-size:clamp(3.3rem,6.7vw,6.1rem);line-height:.91;letter-spacing:-.035em;max-width:9ch;margin-bottom:1.6rem}
+.hero p:not(.eyebrow){color:#5e5658;max-width:43ch;font-size:1.03rem;line-height:1.9}
+.hero .btn{margin-top:.4rem;background:#5A1028;border-color:#5A1028;box-shadow:0 10px 24px #5a10281f;transition:transform .3s,box-shadow .3s,background .3s}
+.hero .btn:hover{transform:translateY(-3px);background:#76213D;box-shadow:0 15px 28px #5a102833}
+.hero-logo{position:relative;isolation:isolate;justify-self:center;width:min(490px,100%);aspect-ratio:1;display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle at 50% 45%,#fbf8f1 0%,#f6f1e8 56%,rgba(226,216,204,.6) 72%,rgba(226,216,204,0) 73%);filter:drop-shadow(0 28px 36px rgba(53,8,23,.09))}
+.hero-logo:before{content:"";position:absolute;inset:4%;border:1px solid rgba(138,109,47,.44);border-radius:50%;box-shadow:inset 0 0 0 8px rgba(255,255,255,.2);animation:morfo-orbit 40s linear infinite}
+.hero-logo:after{content:"M · A";position:absolute;right:-1%;bottom:12%;font:italic 1.05rem var(--serif);letter-spacing:.2em;color:#8a6d2f;transform:rotate(-90deg);transform-origin:center}
+.hero-logo img{position:relative;z-index:1;width:76%;height:auto;max-height:none;object-fit:contain;border-radius:50%;padding:2%;background:#f8f5ef;mix-blend-mode:normal;-webkit-mask-image:none;mask-image:none;filter:drop-shadow(0 10px 14px rgba(53,8,23,.08));animation:morfo-logo-arrive 1.3s cubic-bezier(.2,.7,.2,1) both}
+@keyframes morfo-orbit{to{transform:rotate(360deg)}}
+@keyframes morfo-logo-arrive{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+.hero-signature{display:flex;align-items:center;gap:1rem;margin-top:-1.2rem;margin-bottom:0!important;padding:0 0 1.5rem;color:#70696c;font-size:.64rem;letter-spacing:.19em;text-transform:uppercase}
+.hero-signature .signature-line{height:1px;flex:1;background:linear-gradient(90deg,#c9a65c,#b8aaa0,transparent)}
+section{position:relative;padding:clamp(5rem,9vw,8rem) 0}
+section h2{font-size:clamp(2.8rem,5vw,4.7rem);letter-spacing:-.025em}
+#destacada{background:#f7f3ec}
+#destacada .feat{position:relative}
+#destacada .feat:before{content:"THE WORK / 01";position:absolute;top:-2.5rem;left:0;color:#8a6d2f;font-size:.65rem;letter-spacing:.22em}
+.frame{position:relative;overflow:hidden;aspect-ratio:4/5;background:linear-gradient(145deg,#e5ded5,#f7f3ec 55%,#d9d0c7);border:1px solid #d2c7bb;border-style:solid;box-shadow:0 18px 45px rgba(41,36,39,.08);transition:transform .6s cubic-bezier(.2,.7,.2,1),box-shadow .6s}
+.frame:before{content:"MORFO / ORIGINAL";position:absolute;z-index:2;left:1rem;bottom:1rem;font-size:.58rem;letter-spacing:.16em;color:#5d5355;background:rgba(248,245,239,.82);padding:.42rem .6rem;backdrop-filter:blur(8px)}
+.frame img{transition:transform .9s cubic-bezier(.2,.7,.2,1),filter .6s}
+.card:hover .frame,.feat .frame:hover{transform:translateY(-5px);box-shadow:0 28px 55px rgba(41,36,39,.14)}
+.card:hover .frame img{transform:scale(1.045)}
+.badge{border-color:#a88a52;color:#5A1028;letter-spacing:.04em}
+#obras{background:#e9e3dc!important}
+#obras .wrap>h2,#subastas h2,#faq h2,#contacto h2{position:relative}
+#obras .wrap>h2:after,#subastas h2:after,#faq h2:after,#contacto h2:after{content:"";display:block;width:3.8rem;height:1px;background:#c9a65c;margin-top:1.1rem}
+#obras .grid{gap:clamp(1.4rem,3vw,2.5rem)}
+.card{position:relative;transition:transform .35s}
+.card h3{font-size:clamp(1.8rem,2.5vw,2.2rem);letter-spacing:-.015em}
+.card p{line-height:1.75}
+.card:after{content:"↗";position:absolute;right:.2rem;bottom:.2rem;width:2.3rem;height:2.3rem;border:1px solid #b6a18e;border-radius:50%;display:grid;place-items:center;color:#5A1028;opacity:0;transform:translate(-5px,5px);transition:opacity .3s,transform .3s}
+.card:hover:after{opacity:1;transform:translate(0,0)}
+#artista.dark{background:radial-gradient(ellipse at 0% 100%,#4a182b 0%,transparent 43%),linear-gradient(125deg,#292528,#1c191b);position:relative;overflow:hidden}
+#artista:after{content:"MORFO";position:absolute;right:-.04em;bottom:-.25em;font:clamp(8rem,22vw,22rem)/.8 var(--serif);letter-spacing:-.06em;color:rgba(255,255,255,.025);pointer-events:none}
+.artist{position:relative;z-index:1;align-items:start}
+.artist blockquote{border-left:0;padding:1.5rem 0 1.5rem 2rem;position:relative;font-size:clamp(2.2rem,4.2vw,4rem);line-height:1.04}
+.artist blockquote:before{content:"“";position:absolute;top:-.8rem;left:-.2rem;font-size:6rem;line-height:1;color:#c9a65c;opacity:.85}
+.artist h2{color:#f7f3ec}
+.artist p{line-height:1.9}
+#subastas .empty{position:relative;max-width:none;padding:clamp(2rem,5vw,4rem);border:1px solid #d2c5b6;background:linear-gradient(120deg,#fffaf3,#eee5dc);box-shadow:0 20px 55px rgba(41,36,39,.055)}
+#subastas .empty:after{content:"EN PREPARACIÓN";position:absolute;right:1.4rem;top:1.4rem;font-size:.6rem;letter-spacing:.17em;color:#8a6d2f}
+#faq details{padding:1.25rem 0;border-color:#d0c5b9}
+#faq summary{font-family:var(--serif);font-size:1.45rem;font-weight:600}
+#faq details[open] summary{color:#5A1028}
+#contacto{background:#e9e3dc}
+input,textarea,select{border-radius:0;border-color:#c8bcb0;background:#fcfaf6;padding:.85rem .9rem;transition:border-color .25s,box-shadow .25s}
+input:focus,textarea:focus,select:focus{border-color:#76213D;box-shadow:0 0 0 3px rgba(118,33,61,.09);outline:none}
+.btn{transition:transform .25s,background .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px)}
+footer{border-top:1px solid rgba(201,166,92,.3)}
+.reveal{transition:opacity .85s ease,transform .85s cubic-bezier(.2,.7,.2,1)}
+@media(max-width:820px){
+ .hero{padding-top:3rem}
+ .hero .wrap{grid-template-columns:1fr;gap:1rem}
+ .hero-copy{padding:1rem 0 1rem 1rem}
+ .hero h1{font-size:clamp(3.2rem,14vw,5.3rem);max-width:10ch}
+ .hero-logo{order:-1;width:min(340px,80vw);margin:0 auto}
+ .hero-logo:after{right:0;font-size:.8rem}
+ .hero-signature{margin-top:0!important;font-size:.53rem;letter-spacing:.1em}
+ .hero-signature span:last-child{max-width:40%;text-align:right}
+ .brand{font-size:1.4rem}
+ .bar{min-height:68px}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero-logo:before,.hero-logo img{animation:none!important}
+ .frame,.frame img,.card:after,.btn{transition:none!important}
+}
+
 </style>
 </head>
 <body>
