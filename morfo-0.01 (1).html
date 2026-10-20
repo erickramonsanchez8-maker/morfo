@@ -432,6 +432,47 @@ footer a:not(.brand):hover{color:#e7c6ce}
   .btn,.btn:before,.frame,.frame img,.card h3,header.top,nav a:after,#faq details{transition:none!important}
 }
 
+
+/* ===== Escenografía editorial: materia, profundidad y luz ambiental ===== */
+.hero{isolation:isolate}
+.hero:after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.19;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");mix-blend-mode:soft-light}
+.hero-logo{display:grid;place-items:center;isolation:isolate}
+.hero-logo:after{content:"";position:absolute;z-index:-2;width:78%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(166,76,101,.20) 0%,rgba(90,16,40,.12) 34%,rgba(201,166,92,.045) 52%,transparent 72%);filter:blur(12px);animation:morfo-aura 8s ease-in-out infinite}
+.hero-logo img{position:relative;z-index:1;background:transparent;mix-blend-mode:screen;filter:drop-shadow(0 22px 34px rgba(0,0,0,.22)) drop-shadow(0 0 22px rgba(166,76,101,.12));-webkit-mask-image:radial-gradient(ellipse at center,#000 54%,rgba(0,0,0,.94) 66%,transparent 82%);mask-image:radial-gradient(ellipse at center,#000 54%,rgba(0,0,0,.94) 66%,transparent 82%)}
+.hero-copy{position:relative}
+.hero-copy:before{content:"";position:absolute;z-index:-1;left:-3rem;top:-2rem;width:9rem;height:9rem;border-top:1px solid rgba(201,166,92,.25);border-left:1px solid rgba(201,166,92,.25);pointer-events:none;opacity:.8}
+.hero-eyebrow,.eyebrow{letter-spacing:.22em}
+.hero-signature{padding-top:.85rem;padding-bottom:.85rem;letter-spacing:.14em;text-transform:uppercase;font-size:.68rem}
+.signature-line{height:1px;max-width:180px;flex:1}
+#destacada,#obras,#artista,#subastas,#faq,#contacto{position:relative;isolation:isolate}
+#destacada:before,#obras:before,#artista:before,#subastas:before,#faq:before,#contacto:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.2;background-image:radial-gradient(circle at 12% 18%,rgba(90,16,40,.055) 0 1px,transparent 1.5px),radial-gradient(circle at 76% 66%,rgba(52,48,51,.045) 0 1px,transparent 1.5px);background-size:29px 31px,37px 41px}
+#destacada:after{content:"MORFO  /  EST. 2026";position:absolute;right:max(1.25rem,calc((100vw - 1120px)/2));top:2rem;color:rgba(90,16,40,.24);font-family:var(--sans);font-size:.62rem;letter-spacing:.2em;pointer-events:none}
+#obras .wrap{position:relative}
+#obras .wrap:before{content:"01  —  COLLECTION";display:block;margin-bottom:1rem;color:var(--vino-luz);font-size:.68rem;letter-spacing:.22em}
+#artista .wrap:before{content:"02  —  THE ARTIST";display:block;margin-bottom:1rem;color:var(--oro-luz);font-size:.68rem;letter-spacing:.22em}
+#subastas .wrap:before{content:"03  —  ACQUISITIONS";display:block;margin-bottom:1rem;color:var(--vino-luz);font-size:.68rem;letter-spacing:.22em}
+#contacto .wrap:before{content:"04  —  PRIVATE INQUIRIES";display:block;margin-bottom:1rem;color:var(--oro-luz);font-size:.68rem;letter-spacing:.22em}
+#obras .card{position:relative}
+#obras .card:after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,rgba(90,16,40,.22),transparent);transform:scaleX(.35);transform-origin:center;transition:transform .45s ease}
+#obras .card:hover:after{transform:scaleX(1)}
+.feat .frame{box-shadow:0 28px 70px rgba(52,48,51,.14),inset 0 0 0 1px rgba(255,255,255,.32)}
+#artista blockquote{position:relative}
+#artista blockquote:after{content:"”";position:absolute;right:.2rem;bottom:-3rem;color:rgba(201,166,92,.17);font-family:var(--serif);font-size:8rem;line-height:1;pointer-events:none}
+#faq summary{transition:color .25s ease}
+#faq summary:hover{color:var(--vino)}
+#contacto .btn{background:linear-gradient(115deg,var(--vino-profundo),var(--vino-rico));}
+@keyframes morfo-aura{0%,100%{transform:scale(.96);opacity:.7}50%{transform:scale(1.06);opacity:1}}
+@media(max-width:820px){
+ .hero-copy:before{left:-.7rem;top:-1.2rem;width:5rem;height:5rem}
+ .hero-logo{width:min(340px,86%)}
+ #destacada:after{top:1rem;font-size:.54rem}
+ #obras .wrap:before,#artista .wrap:before,#subastas .wrap:before,#contacto .wrap:before{font-size:.6rem}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero-logo:after{animation:none!important}
+ #obras .card:after{transition:none!important}
+}
+
 </style>
 </head>
 <body>
