@@ -10,7 +10,7 @@
 <link rel="icon" type="image/png" href="logo-morfo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ===== Tokens (ajustar con los hex oficiales) ===== */
 :root{
@@ -569,6 +569,81 @@ footer{border-top:1px solid rgba(201,166,92,.3)}
 @media(prefers-reduced-motion:reduce){
  .hero-logo:before,.hero-logo img{animation:none!important}
  .frame,.frame img,.card:after,.btn{transition:none!important}
+}
+
+
+/* ===== MORFO · sistema de identidad visual oficial ===== */
+:root{
+  --vino:#5A1028;              /* Vino de colección */
+  --vino-profundo:#350817;     /* Vino profundo */
+  --borgona:#76213D;           /* Borgoña */
+  --carbon:#343033;            /* Carbón grisáceo */
+  --gris-mineral:#777276;      /* Gris mineral */
+  --gris-claro:#E9E5E1;        /* Gris claro — corregido desde la transcripción */
+  --marfil:#F8F5EF;             /* Claridad y espacio — corregido desde la transcripción */
+  --oro:#C9A65C;               /* Oro envejecido */
+  --tinta:#343033;
+  --serif:"Libre Baskerville", Baskerville, "Baskerville Old Face", Georgia, serif;
+  --sans:"Work Sans", "Helvetica Neue", Arial, sans-serif;
+}
+html{background:var(--marfil)}
+body{
+  color:var(--carbon);
+  background-color:var(--marfil);
+  background-image:linear-gradient(135deg,rgba(90,16,40,.018) 25%,transparent 25%,transparent 50%,rgba(90,16,40,.018) 50%,rgba(90,16,40,.018) 75%,transparent 75%,transparent);
+  background-size:18px 18px;
+  font-family:var(--sans);
+}
+h1,h2,h3,.brand,.brand-word,.card h3,#faq summary,blockquote{
+  font-family:var(--serif);
+}
+h1,h2,h3{letter-spacing:-.035em}
+header.top{background:rgba(52,48,51,.97);border-bottom-color:rgba(201,166,92,.42)}
+.brand,.brand-word{color:var(--oro)}
+.brand small,.brand-word small{color:var(--marfil)}
+.ver{background:var(--vino-profundo);color:#e9e5e1}
+.btn{background:var(--vino);border-color:var(--oro);border-radius:0}
+.btn:hover{background:var(--borgona)}
+.hero{
+  background:
+    radial-gradient(ellipse at 78% 38%,rgba(201,166,92,.12),transparent 32%),
+    radial-gradient(ellipse at 12% 88%,rgba(90,16,40,.07),transparent 36%),
+    linear-gradient(125deg,#F8F5EF 0%,#E9E5E1 100%);
+  overflow:hidden;
+}
+.hero:before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.24;
+  background:repeating-linear-gradient(0deg,transparent 0 5px,rgba(52,48,51,.025) 5px 6px);
+}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{color:var(--vino-profundo);letter-spacing:-.055em}
+.hero-copy{border-left-color:var(--oro)}
+.hero-logo{background:radial-gradient(circle,#fffdf8 0%,#F8F5EF 62%,#E9E5E1 100%);border:1px solid rgba(201,166,92,.7);box-shadow:0 24px 70px rgba(53,8,23,.10),inset 0 0 0 8px rgba(255,255,255,.32)}
+.hero-logo:before{border-color:rgba(201,166,92,.55)}
+.hero-logo img{background:transparent!important;mix-blend-mode:multiply;filter:drop-shadow(0 10px 14px rgba(53,8,23,.09))}
+.hero-signature{color:var(--gris-mineral)}
+#destacada{background:linear-gradient(145deg,var(--marfil),var(--gris-claro))}
+#obras{background:linear-gradient(180deg,#E9E5E1 0%,#F8F5EF 100%)!important}
+#obras .wrap>h2:after,#subastas h2:after,#faq h2:after,#contacto h2:after{background:var(--oro)}
+.frame{background:linear-gradient(145deg,#E9E5E1,#F8F5EF 55%,#d9d0c7);border-color:rgba(119,114,118,.3)}
+.frame:before{background:rgba(248,245,239,.88);color:var(--vino)}
+.badge{border-color:var(--oro);color:var(--vino)}
+.card:after{border-color:var(--oro);color:var(--vino)}
+#artista.dark{background:radial-gradient(ellipse at 0% 100%,rgba(118,33,61,.7) 0%,transparent 48%),linear-gradient(125deg,var(--carbon),var(--vino-profundo))}
+#artista blockquote{border-left-color:var(--oro)}
+#subastas .empty{background:linear-gradient(125deg,#F8F5EF,#E9E5E1);border-color:rgba(201,166,92,.65)}
+#faq{background:var(--marfil)}
+#faq details{border-color:rgba(119,114,118,.32)}
+#faq details[open] summary{color:var(--vino)}
+#contacto{background:linear-gradient(135deg,#E9E5E1,#F8F5EF)}
+input,textarea,select{background:#fffdf9;border-color:rgba(119,114,118,.48)}
+input:focus,textarea:focus,select:focus{border-color:var(--borgona);box-shadow:0 0 0 3px rgba(118,33,61,.1)}
+footer{background:var(--carbon);color:var(--marfil);border-top:1px solid rgba(201,166,92,.4)}
+footer .brand-word{color:var(--oro)}
+footer a:hover{color:var(--oro)}
+::selection{background:var(--vino);color:var(--marfil)}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 
 </style>
