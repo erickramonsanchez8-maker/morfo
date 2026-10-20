@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MORFO art — Galería virtual</title>
+<meta name="description" content="MORFO art: galería virtual de arte original. Rostros que no buscan ser bellos, buscan ser honestos.">
+<meta property="og:title" content="MORFO art">
+<meta property="og:image" content="assets/logo-morfo.png">
+<link rel="icon" href="assets/logo-morfo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== Tokens (ajustar con los hex oficiales) ===== */
+:root{
+  --guinda:#6B1230; --guinda-claro:#8E2347; --oro:#C9A65C; --oro-oscuro:#8A6D2F;
+  --carbon:#2E2E30; --carbon-2:#232325; --claro:#F6F3EE; --tinta:#1F1B1C; --gris:#6c6668;
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:var(--sans);color:var(--tinta);background:var(--claro);line-height:1.6;font-size:1rem}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--oro);outline-offset:3px}
+.wrap{width:min(1120px,100% - 2.5rem);margin-inline:auto}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.1}
+h2{font-size:clamp(2rem,4.5vw,3.2rem);margin-bottom:1.25rem}
+p{max-width:62ch}
+.dark{background:var(--carbon);color:#EDE8DF}
+.dark h2{color:var(--oro)}
+section{padding:clamp(4rem,9vw,7rem) 0}
+
+/* Aviso de versión */
+.ver{background:var(--carbon-2);color:#bdb6aa;font-size:.8rem;text-align:center;padding:.4rem 1rem}
+
+/* Cabecera */
+header.top{position:sticky;top:0;z-index:20;background:rgba(35,35,37,.96);backdrop-filter:blur(6px);color:#EDE8DF;border-bottom:1px solid rgba(201,166,92,.25)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:64px}
+.brand{font-family:var(--serif);font-size:1.7rem;letter-spacing:.06em;color:var(--oro);text-decoration:none;font-weight:600}
+.brand small{font-size:1.05rem;letter-spacing:.12em;margin-left:.35rem;color:#EDE8DF;font-weight:500}
+nav ul{display:flex;gap:1.5rem;list-style:none;padding:0}
+nav a{text-decoration:none;font-size:.95rem;padding:.4rem 0;border-bottom:1px solid transparent}
+nav a:hover{border-color:var(--oro)}
+.lang{display:flex;gap:.25rem}
+.lang button{background:none;border:1px solid rgba(201,166,92,.5);color:#EDE8DF;padding:.3rem .65rem;font:inherit;font-size:.85rem;cursor:pointer;border-radius:2px}
+.lang button[aria-pressed=true]{background:var(--oro);color:var(--carbon-2);border-color:var(--oro)}
+.menu{display:none;background:none;border:1px solid rgba(201,166,92,.5);color:#EDE8DF;padding:.35rem .7rem;font:inherit;cursor:pointer;border-radius:2px}
+@media(max-width:820px){
+  .menu{display:block}
+  nav{position:absolute;inset:100% 0 auto 0;background:var(--carbon-2);display:none;padding:1rem 1.25rem 1.5rem}
+  nav.open{display:block}
+  nav ul{flex-direction:column;gap:.5rem}
+  .bar{flex-wrap:wrap}
+}
+
+/* Portada */
+.hero{background:var(--carbon);color:#EDE8DF;padding:clamp(2.5rem,6vw,5rem) 0 clamp(4rem,8vw,6rem);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:2rem;align-items:center}
+.hero-logo{justify-self:center;width:min(520px,100%)}
+.hero-logo img{width:100%;height:auto;-webkit-mask-image:radial-gradient(closest-side,#000 68%,transparent 100%);mask-image:radial-gradient(closest-side,#000 68%,transparent 100%)}
+.hero h1{font-size:clamp(2.4rem,5.6vw,4.4rem);color:#F3EEE4;margin-bottom:1.25rem}
+.hero p{color:#cfc8bb;margin-bottom:2rem;font-size:1.08rem}
+.btn{display:inline-block;background:var(--guinda);color:#fff;text-decoration:none;padding:.85rem 1.6rem;border:1px solid var(--oro);border-radius:2px;font-weight:500;cursor:pointer;font-family:var(--sans);font-size:1rem}
+.btn:hover{background:var(--guinda-claro)}
+.btn.ghost{background:none;border-color:currentColor}
+@media(max-width:820px){.hero .wrap{grid-template-columns:1fr}.hero-logo{order:-1;width:min(340px,80%)}}
+@media(prefers-reduced-motion:no-preference){.hero-logo img{animation:rev 1.6s ease-out both}@keyframes rev{from{opacity:0;filter:blur(8px)}to{opacity:1;filter:none}}}
+
+/* Marcos de obra */
+.frame{aspect-ratio:4/5;background:#e9e4dc;border:1px dashed #b9b0a2;display:grid;place-items:center;text-align:center;padding:1.5rem;color:var(--gris);font-size:.92rem;width:100%}
+.frame img{width:100%;height:100%;object-fit:cover}
+.badge{display:inline-block;border:1px solid var(--guinda);color:var(--guinda);padding:.25rem .7rem;font-size:.88rem;border-radius:2px;font-weight:500}
+
+/* Destacada */
+.feat{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(2rem,6vw,5rem);align-items:center}
+.feat h2{margin-bottom:.5rem}
+.meta{color:var(--gris);margin-bottom:1.25rem}
+.feat .badge{margin-bottom:1.5rem}
+@media(max-width:820px){.feat{grid-template-columns:1fr}}
+
+/* Catálogo */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2rem}
+.card{text-decoration:none;display:block}
+.card h3{font-size:1.6rem;margin:.9rem 0 .15rem}
+.card p{color:var(--gris);font-size:.92rem}
+.card:hover h3{color:var(--guinda)}
+
+/* Artista */
+.artist{display:grid;grid-template-columns:5fr 6fr;gap:clamp(2rem,6vw,5rem)}
+blockquote{font-family:var(--serif);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;color:#F3EEE4;border-left:3px solid var(--guinda-claro);padding-left:1.25rem}
+.artist p+p{margin-top:1rem}
+.refs{margin-top:1.5rem;color:#cfc8bb;font-size:.95rem}
+.pend{display:inline-block;margin-top:1.5rem;font-size:.85rem;color:var(--oro);border:1px dashed var(--oro);padding:.25rem .6rem}
+@media(max-width:820px){.artist{grid-template-columns:1fr}}
+
+/* Subastas */
+.empty{border:1px solid #d6cdbf;padding:clamp(1.5rem,4vw,3rem);max-width:720px}
+.empty h3{font-size:1.8rem;margin-bottom:.5rem}
+form.inline{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.25rem}
+
+/* Formularios */
+label{display:block;font-size:.92rem;margin-bottom:.3rem;font-weight:500}
+input,textarea,select{font:inherit;width:100%;padding:.7rem .8rem;border:1px solid #9d9588;background:#fff;color:var(--tinta);border-radius:2px}
+.dark input,.dark textarea,.dark select{background:var(--carbon-2);border-color:#7b756b;color:#EDE8DF}
+.field{margin-bottom:1rem}
+.hp{position:absolute;left:-9999px}
+.note{margin-top:.75rem;font-size:.9rem;color:var(--gris)}
+.dark .note{color:#bdb6aa}
+.contact{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(2rem,6vw,5rem)}
+@media(max-width:820px){.contact{grid-template-columns:1fr}}
+
+/* FAQ */
+details{border-bottom:1px solid #d6cdbf;padding:1rem 0;max-width:760px}
+summary{cursor:pointer;font-weight:500;font-size:1.05rem}
+details p{margin-top:.6rem;color:#4b4547}
+
+/* Ficha de obra */
+#detail{display:none}
+body.in-detail #home{display:none}
+body.in-detail #detail{display:block}
+.back{display:inline-block;margin-bottom:2rem;color:var(--gris)}
+.sheet{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(2rem,6vw,5rem)}
+.sheet h1{font-size:clamp(2.4rem,5vw,4rem);margin-bottom:.5rem}
+dl{display:grid;grid-template-columns:auto 1fr;gap:.5rem 1.5rem;margin:1.5rem 0;border-top:1px solid #d6cdbf;padding-top:1.25rem}
+dt{color:var(--gris)}
+dd{font-weight:500}
+.story h2{font-size:1.9rem;margin:1.5rem 0 .5rem}
+@media(max-width:820px){.sheet{grid-template-columns:1fr}}
+
+footer{background:var(--carbon-2);color:#bdb6aa;padding:3rem 0;font-size:.92rem}
+footer ul{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;margin:1rem 0}
+footer .brand{font-size:1.5rem}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="ver" data-i18n="ver"></div>
+
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#inicio" aria-label="MORFO art">MORFO<small>art</small></a>
+    <button class="menu" aria-expanded="false" aria-controls="nav" data-i18n="menu"></button>
+    <nav id="nav" aria-label="Principal">
+      <ul>
+        <li><a href="#obras" data-i18n="n_obras"></a></li>
+        <li><a href="#artista" data-i18n="n_artista"></a></li>
+        <li><a href="#subastas" data-i18n="n_subastas"></a></li>
+        <li><a href="#faq" data-i18n="n_faq"></a></li>
+        <li><a href="#contacto" data-i18n="n_contacto"></a></li>
+      </ul>
+    </nav>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button data-lang="es" aria-pressed="true">ES</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="home">
+  <div class="hero" id="inicio">
+    <div class="wrap">
+      <div>
+        <h1 data-i18n="h_title"></h1>
+        <p data-i18n="h_text"></p>
+        <a class="btn" href="#obras" data-i18n="h_cta"></a>
+      </div>
+      <div class="hero-logo">
+        <img src="assets/logo-morfo.png" width="1024" height="1024" alt="Logotipo de MORFO art: mariposa guinda y dorada">
+      </div>
+    </div>
+  </div>
+
+  <section id="destacada">
+    <div class="wrap feat" id="featured"></div>
+  </section>
+
+  <section id="obras" style="background:#EFEAE1">
+    <div class="wrap">
+      <h2 data-i18n="c_title"></h2>
+      <p style="margin-bottom:2rem;color:var(--gris)" data-i18n="c_text"></p>
+      <div class="grid" id="catalog"></div>
+    </div>
+  </section>
+
+  <section id="artista" class="dark">
+    <div class="wrap artist">
+      <blockquote data-i18n="a_quote"></blockquote>
+      <div>
+        <h2 data-i18n="a_title"></h2>
+        <p data-i18n="a_p1"></p>
+        <p data-i18n="a_p2"></p>
+        <p class="refs" data-i18n="a_refs"></p>
+        <span class="pend" data-i18n="a_pend"></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="subastas">
+    <div class="wrap">
+      <h2 data-i18n="s_title"></h2>
+      <div class="empty">
+        <h3 data-i18n="s_empty_t"></h3>
+        <p data-i18n="s_empty_p"></p>
+        <form class="inline" data-demo novalidate>
+          <label class="hp" for="hp1">Web</label><input class="hp" id="hp1" name="web" tabindex="-1" autocomplete="off">
+          <div style="flex:1 1 240px"><label for="mail1" data-i18n="s_mail"></label><input id="mail1" type="email" autocomplete="email" required></div>
+          <div style="align-self:end"><button class="btn" type="submit" data-i18n="s_btn"></button></div>
+        </form>
+        <p class="note" role="status" aria-live="polite" data-msg></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" style="background:#EFEAE1">
+    <div class="wrap">
+      <h2 data-i18n="f_title"></h2>
+      <p class="note" style="margin:-.5rem 0 1.5rem" data-i18n="f_note"></p>
+      <details><summary data-i18n="f1q"></summary><p data-i18n="f1a"></p></details>
+      <details><summary data-i18n="f2q"></summary><p data-i18n="f2a"></p></details>
+      <details><summary data-i18n="f3q"></summary><p data-i18n="f3a"></p></details>
+      <details><summary data-i18n="f4q"></summary><p data-i18n="f4a"></p></details>
+    </div>
+  </section>
+
+  <section id="contacto" class="dark">
+    <div class="wrap contact">
+      <div>
+        <h2 data-i18n="k_title"></h2>
+        <p data-i18n="k_text"></p>
+      </div>
+      <form data-demo novalidate>
+        <label class="hp" for="hp2">Web</label><input class="hp" id="hp2" name="web" tabindex="-1" autocomplete="off">
+        <div class="field"><label for="k_name" data-i18n="k_name"></label><input id="k_name" autocomplete="name" required></div>
+        <div class="field"><label for="k_mail" data-i18n="s_mail"></label><input id="k_mail" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="k_topic" data-i18n="k_topic"></label>
+          <select id="k_topic"><option data-i18n="k_t1"></option><option data-i18n="k_t2"></option><option data-i18n="k_t3"></option><option data-i18n="k_t4"></option></select></div>
+        <div class="field"><label for="k_msg" data-i18n="k_msg"></label><textarea id="k_msg" rows="5" required></textarea></div>
+        <button class="btn" type="submit" data-i18n="k_btn"></button>
+        <p class="note" role="status" aria-live="polite" data-msg></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<main id="detail">
+  <section>
+    <div class="wrap" id="detail-body"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="brand">MORFO<small>art</small></span>
+    <ul>
+      <li><a href="#" data-i18n="l_terms"></a></li>
+      <li><a href="#" data-i18n="l_rules"></a></li>
+      <li><a href="#" data-i18n="l_priv"></a></li>
+      <li><a href="#" data-i18n="l_ship"></a></li>
+      <li><a href="#" data-i18n="l_copy"></a></li>
+    </ul>
+    <p data-i18n="l_note"></p>
+    <p style="margin-top:.75rem">© 2026 MORFO. <span data-i18n="l_rights"></span></p>
+  </div>
+</footer>
+
+<script>
+/* ===== Textos ES / EN ===== */
+const T = {
+es:{
+ver:"Versión 0.01 · demostración visual: aún sin base de datos, cuentas, pagos ni subastas operativas.",
+menu:"Menú", n_obras:"Obras", n_artista:"La artista", n_subastas:"Subastas", n_faq:"Preguntas", n_contacto:"Contacto",
+h_title:"Caras que no buscan ser bellas, buscan ser honestas.",
+h_text:"MORFO es una galería virtual de obra original: rostros deformados, color de alto impacto y emociones que no se maquillan.",
+h_cta:"Ver las obras",
+c_title:"Obras", c_text:"Cada pieza tiene su propia historia y su estado comercial claro.",
+view:"Ver ficha", back:"← Volver a las obras",
+st_exposicion:"Obra en exposición — no disponible para venta",
+st_disponible:"Disponible", st_subasta:"En subasta", st_vendida:"Vendida",
+f_year:"Año", f_tech:"Técnica", f_support:"Soporte", f_dims:"Dimensiones", f_state:"Conservación", f_sign:"Firma", f_status:"Estado",
+no_photo:"Fotografía original pendiente", story:"Historia de la obra", draft:"Borrador pendiente de aprobación de la artista.",
+a_quote:"“Mi arte es un diario emocional. Son caras que no buscan ser bellas, buscan ser honestas.”",
+a_title:"La artista",
+a_p1:"MORFO es el nombre artístico de una pintora autodidacta que lleva entre tres y cinco años creando. Su pintura nació como un diario: un lugar donde poner experiencias difíciles.",
+a_p2:"Deforma el rostro porque la intensidad de la deformación y del color es la medida de lo que se siente en cada situación.",
+a_refs:"Referencias: Francis Bacon, Egon Schiele, Jean-Michel Basquiat, Pablo Picasso y ciertos elementos del universo de Tim Burton.",
+a_pend:"Biografía y declaración: texto provisional, falta aprobación de la artista.",
+s_title:"Subastas",
+s_empty_t:"Todavía no hay subastas abiertas",
+s_empty_p:"Cuando haya una, aparecerá aquí con sus reglas, su precio de salida y su hora de cierre. Puedes dejar tu correo para recibir el aviso.",
+s_mail:"Correo electrónico", s_btn:"Avisarme",
+f_title:"Preguntas frecuentes", f_note:"Borrador: las respuestas definitivas dependen de las reglas que apruebe la artista.",
+f1q:"¿Cómo funcionará una subasta?", f1a:"Será una subasta temporizada. La duración habitual prevista es de siete días, y puede cambiar según la obra. Las reglas se publicarán antes de aceptar ofertas.",
+f2q:"¿Se ampliará el plazo si llegan ofertas al final?", f2a:"Está contemplada una extensión automática. Falta definir cuántos minutos antes del cierre se activa y cuánto se amplía.",
+f3q:"¿Cuánto tiempo hay para pagar si gano?", f3a:"El plazo previsto es de 72 horas después del cierre. Es una política preliminar pendiente de aprobación.",
+f4q:"¿Hacen envíos?", f4a:"Los destinos y costos de envío se publicarán cuando estén verificados. Por ahora no se confirma ningún envío.",
+k_title:"Contacto", k_text:"Escribe para preguntar por una obra, proponer una exposición o colaborar.",
+k_name:"Nombre", k_topic:"Motivo", k_t1:"Pregunta sobre una obra", k_t2:"Exposición", k_t3:"Colaboración", k_t4:"Otro",
+k_msg:"Mensaje", k_btn:"Enviar mensaje",
+demo_ok:"Demostración: el formulario aún no envía nada. Tu mensaje no se guardó.", demo_err:"Completa los campos obligatorios con datos válidos.",
+l_terms:"Términos y condiciones (borrador)", l_rules:"Reglas de subasta (borrador)", l_priv:"Privacidad (borrador)", l_ship:"Envíos y devoluciones (borrador)", l_copy:"Derechos de autor y uso de imágenes (borrador)",
+l_note:"Textos legales provisionales, pendientes de revisión legal.", l_rights:"Todos los derechos reservados.",
+feat_link:"Ver ficha de la obra"
+},
+en:{
+ver:"Version 0.01 · visual demo: no database, accounts, payments or live auctions yet.",
+menu:"Menu", n_obras:"Works", n_artista:"The artist", n_subastas:"Auctions", n_faq:"FAQ", n_contacto:"Contact",
+h_title:"Faces that don’t try to be beautiful. They try to be honest.",
+h_text:"MORFO is a virtual gallery of original work: distorted faces, high-impact color and emotions left unpolished.",
+h_cta:"View the works",
+c_title:"Works", c_text:"Every piece has its own story and a clear commercial status.",
+view:"View details", back:"← Back to works",
+st_exposicion:"On display — not for sale",
+st_disponible:"Available", st_subasta:"At auction", st_vendida:"Sold",
+f_year:"Year", f_tech:"Medium", f_support:"Support", f_dims:"Dimensions", f_state:"Condition", f_sign:"Signature", f_status:"Status",
+no_photo:"Original photograph pending", story:"About this work", draft:"Draft pending the artist’s approval.",
+a_quote:"“My art is an emotional diary. These are faces that don’t seek to be beautiful; they seek to be honest.”",
+a_title:"The artist",
+a_p1:"MORFO is the artistic name of a self-taught painter who has been creating for three to five years. Her painting began as a diary: a place to put difficult experiences.",
+a_p2:"She distorts the face because the intensity of the distortion and the color measures what is felt in each situation.",
+a_refs:"References: Francis Bacon, Egon Schiele, Jean-Michel Basquiat, Pablo Picasso and certain elements of Tim Burton’s universe.",
+a_pend:"Biography and statement: provisional text, awaiting the artist’s approval.",
+s_title:"Auctions",
+s_empty_t:"There are no open auctions yet",
+s_empty_p:"When one opens, it will appear here with its rules, starting price and closing time. Leave your email to be notified.",
+s_mail:"Email address", s_btn:"Notify me",
+f_title:"Frequently asked questions", f_note:"Draft: final answers depend on the rules the artist approves.",
+f1q:"How will an auction work?", f1a:"It will be a timed auction. The usual planned length is seven days, and it may change per work. Rules will be published before any bid is accepted.",
+f2q:"Will the deadline extend if bids arrive at the end?", f2a:"An automatic extension is planned. How many minutes before closing it triggers and how much it adds are still to be defined.",
+f3q:"How long do I have to pay if I win?", f3a:"The planned window is 72 hours after closing. This is a preliminary policy pending approval.",
+f4q:"Do you ship?", f4a:"Shipping destinations and costs will be published once verified. No shipping is confirmed for now.",
+k_title:"Contact", k_text:"Write to ask about a work, propose an exhibition or collaborate.",
+k_name:"Name", k_topic:"Subject", k_t1:"Question about a work", k_t2:"Exhibition", k_t3:"Collaboration", k_t4:"Other",
+k_msg:"Message", k_btn:"Send message",
+demo_ok:"Demo: this form doesn’t send anything yet. Your message was not saved.", demo_err:"Please complete the required fields with valid data.",
+l_terms:"Terms and conditions (draft)", l_rules:"Auction rules (draft)", l_priv:"Privacy (draft)", l_ship:"Shipping and returns (draft)", l_copy:"Copyright and image use (draft)",
+l_note:"Provisional legal texts, pending legal review.", l_rights:"All rights reserved.",
+feat_link:"View work details"
+}};
+
+/* ===== Catálogo: añadir obras aquí (luego vendrá del panel de administración) =====
+   status: exposicion | disponible | subasta | vendida
+   images: rutas de fotografías auténticas, p. ej. ["assets/obras/el-testigo-1.jpg"]
+   Campos sin confirmar se omiten: no se muestran en la ficha. */
+const WORKS=[{
+  slug:"el-testigo", title:"El testigo", status:"exposicion", images:[],
+  year:{es:"Agosto de 2026",en:"August 2026"},
+  tech:{es:"Óleo sobre lienzo",en:"Oil on canvas"},
+  dims:{es:"Aprox. 50–60 cm de alto × 40 cm de ancho × 3–5 cm de profundidad",en:"Approx. 50–60 cm high × 40 cm wide × 3–5 cm deep"},
+  state:{es:"Terminada, sin daños visibles",en:"Finished, no visible damage"},
+  sign:{es:"Firmada",en:"Signed"},
+  story:{
+    es:"“El testigo” se pintó en una etapa de frustración y ansiedad intensa. Su nombre viene de que la obra acompañó a la artista en momentos difíciles. Representa el valor de la pintura como testimonio emocional.",
+    en:"“El testigo” (The Witness) was painted during a period of frustration and intense anxiety. Its name comes from the way the work stayed with the artist through difficult moments. It stands for painting as emotional testimony."}
+}];
+
+let lang="es";
+const t=k=>T[lang][k]||k;
+const L=o=>typeof o==="string"?o:o[lang];
+
+function frame(w,alt){
+  return w.images.length
+    ? `<div class="frame"><img src="${w.images[0]}" alt="${alt}" loading="lazy"></div>`
+    : `<div class="frame" role="img" aria-label="${t('no_photo')}: ${w.title}"><span>${t('no_photo')}</span></div>`;
+}
+function badge(w){return `<span class="badge">${t('st_'+w.status)}</span>`}
+
+function renderHome(){
+  const w=WORKS[0];
+  document.getElementById("featured").innerHTML=`
+    ${frame(w,w.title)}
+    <div>
+      <h2>${w.title}</h2>
+      <p class="meta">${L(w.tech)} · ${L(w.year)}</p>
+      ${badge(w)}
+      <p style="margin-bottom:1.5rem">${L(w.story)}</p>
+      <a class="btn" href="#/obra/${w.slug}">${t('feat_link')}</a>
+    </div>`;
+  document.getElementById("catalog").innerHTML=WORKS.map(x=>`
+    <a class="card" href="#/obra/${x.slug}">
+      ${frame(x,x.title)}
+      <h3>${x.title}</h3>
+      <p>${L(x.tech)} · ${L(x.year)}</p>
+      <p style="margin-top:.4rem">${badge(x)}</p>
+    </a>`).join("");
+}
+function renderDetail(slug){
+  const w=WORKS.find(x=>x.slug===slug); if(!w) return false;
+  const rows=[["f_year",w.year],["f_tech",w.tech],["f_support",w.support],["f_dims",w.dims],["f_state",w.state],["f_sign",w.sign]]
+    .filter(r=>r[1]).map(r=>`<dt>${t(r[0])}</dt><dd>${L(r[1])}</dd>`).join("");
+  document.getElementById("detail-body").innerHTML=`
+    <a class="back" href="#obras">${t('back')}</a>
+    <div class="sheet">
+      ${frame(w,w.title)}
+      <div>
+        <h1>${w.title}</h1>
+        ${badge(w)}
+        <dl>${rows}</dl>
+        <div class="story"><h2>${t('story')}</h2><p>${L(w.story)}</p>
+        <p class="note">${t('draft')}</p></div>
+      </div>
+    </div>`;
+  document.title=`${w.title} — MORFO art`;
+  return true;
+}
+function applyLang(){
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(e=>e.textContent=t(e.dataset.i18n));
+  document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===lang));
+  renderHome(); route();
+}
+function route(){
+  const m=location.hash.match(/^#\/obra\/(.+)$/);
+  if(m && renderDetail(m[1])){document.body.classList.add("in-detail");window.scrollTo(0,0)}
+  else{document.body.classList.remove("in-detail");document.title="MORFO art — "+(lang==="es"?"Galería virtual":"Virtual gallery")}
+}
+window.addEventListener("hashchange",route);
+document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>{lang=b.dataset.lang;applyLang()}));
+
+/* Menú móvil */
+const menu=document.querySelector(".menu"),nav=document.getElementById("nav");
+menu.addEventListener("click",()=>{const o=nav.classList.toggle("open");menu.setAttribute("aria-expanded",o)});
+nav.addEventListener("click",e=>{if(e.target.tagName==="A"){nav.classList.remove("open");menu.setAttribute("aria-expanded","false")}});
+
+/* Formularios de demostración: validan, no envían nada (requieren backend) */
+document.querySelectorAll("form[data-demo]").forEach(f=>f.addEventListener("submit",e=>{
+  e.preventDefault();
+  const msg=f.querySelector("[data-msg]")||f.parentElement.querySelector("[data-msg]");
+  if(f.querySelector("input.hp").value) return;           // trampa antispam básica
+  msg.textContent=f.checkValidity()?t("demo_ok"):t("demo_err");
+  if(f.checkValidity()) f.reset();
+}));
+
+applyLang();
+</script>
+</body>
+</html>
