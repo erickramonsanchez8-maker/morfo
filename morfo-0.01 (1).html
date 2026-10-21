@@ -771,7 +771,35 @@ body.viewer-open{overflow:hidden}
   .hero-signature{animation:none!important}
   .js-motion .reveal.reveal-frame,.js-motion .reveal.reveal-frame img{clip-path:none!important;transform:none!important}
 }
-\n</style>
+\n
+/* ===== Superficies minerales: mármol, piedra pulida y papel artístico ===== */
+:root{--mineral-vein:rgba(90,16,40,.075);--mineral-gold:rgba(201,166,92,.13);--stone-light:#f7f4ef;--stone-mid:#e7e1dc}
+body{background-color:var(--stone-light);background-image:radial-gradient(ellipse at 12% 8%,rgba(255,255,255,.88),transparent 38%),radial-gradient(ellipse at 88% 28%,rgba(201,166,92,.055),transparent 30%),repeating-linear-gradient(128deg,transparent 0 76px,var(--mineral-vein) 77px,transparent 79px 148px),repeating-linear-gradient(38deg,transparent 0 132px,rgba(119,114,118,.045) 133px,transparent 135px 218px);background-attachment:fixed}
+.hero{background:radial-gradient(ellipse at 75% 20%,rgba(255,255,255,.95),transparent 38%),radial-gradient(ellipse at 20% 85%,rgba(201,166,92,.12),transparent 34%),repeating-linear-gradient(132deg,transparent 0 90px,rgba(90,16,40,.055) 91px,transparent 93px 175px),linear-gradient(135deg,#fbf9f5 0%,#e5ded8 52%,#f8f5ef 100%)!important}
+.hero:before{opacity:.36;background:repeating-linear-gradient(0deg,transparent 0 7px,rgba(52,48,51,.022) 7px 8px),repeating-linear-gradient(115deg,transparent 0 120px,rgba(201,166,92,.075) 121px,transparent 123px 230px)}
+#destacada{overflow:hidden;background:radial-gradient(ellipse at 8% 15%,rgba(255,255,255,.9),transparent 35%),radial-gradient(ellipse at 92% 86%,rgba(201,166,92,.09),transparent 32%),repeating-linear-gradient(128deg,transparent 0 110px,rgba(90,16,40,.055) 111px,transparent 113px 210px),linear-gradient(140deg,#f8f5ef 0%,#e5ded8 46%,#f5f0e8 100%)!important}
+#destacada:after,#obras:after,#faq:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.42;background:radial-gradient(ellipse at 28% 34%,transparent 0 22%,rgba(119,114,118,.035) 23%,transparent 24% 100%),repeating-linear-gradient(145deg,transparent 0 145px,rgba(201,166,92,.09) 146px,transparent 148px 280px);mix-blend-mode:multiply}
+#destacada .wrap,#obras .wrap,#faq .wrap{position:relative;z-index:1}
+#destacada .feat{column-gap:clamp(2.25rem,7vw,6.5rem)}
+#destacada .feat:before{top:-2.8rem;display:inline-flex;align-items:center;gap:.8rem;padding:.4rem .65rem;border-left:1px solid var(--oro);background:rgba(248,245,239,.62);color:#765d2c;font-size:.68rem;letter-spacing:.24em;backdrop-filter:blur(8px)}
+#destacada .feat h2{font-size:clamp(2.7rem,5.4vw,5.3rem);line-height:1.02;margin:.35rem 0 .7rem}
+#destacada .feat .meta{font-size:.9rem;letter-spacing:.035em}
+#destacada .feat .badge{margin:.2rem 0 1.4rem}
+#destacada .feat .btn{margin-top:.3rem}
+#destacada .frame{border-color:rgba(201,166,92,.42);box-shadow:0 28px 80px rgba(53,8,23,.13),0 2px 8px rgba(52,48,51,.05)}
+#obras{position:relative;overflow:hidden;background:radial-gradient(ellipse at 80% 15%,rgba(255,255,255,.72),transparent 32%),repeating-linear-gradient(132deg,transparent 0 125px,rgba(90,16,40,.045) 126px,transparent 128px 245px),linear-gradient(135deg,#e7e1dc,#f8f5ef 58%,#e8e1da)!important}
+#faq{position:relative;overflow:hidden;background:repeating-linear-gradient(128deg,transparent 0 150px,rgba(90,16,40,.04) 151px,transparent 153px 280px),linear-gradient(145deg,#f8f5ef,#e9e3dd 52%,#f8f5ef)!important}
+#artista.dark,#contacto.dark{background:radial-gradient(ellipse at 12% 90%,rgba(118,33,61,.55),transparent 38%),repeating-linear-gradient(132deg,transparent 0 150px,rgba(201,166,92,.055) 151px,transparent 153px 300px),linear-gradient(135deg,#211b1f,#30272b 58%,#211b1f)!important}
+.frame{background:linear-gradient(145deg,#e2dbd5,#faf8f4 52%,#d6ccc4)}
+.frame.image-error:after{content:"MORFO · imagen pendiente";position:absolute;inset:auto 1rem 1rem;color:var(--vino);font-size:.75rem;letter-spacing:.08em;background:rgba(248,245,239,.9);padding:.75rem}
+.art-frame img{transition:transform .9s var(--ease-luxe),filter .9s var(--ease-luxe)}
+.art-frame:hover img{filter:saturate(1.04) contrast(1.02)}
+#destacada .featured-copy .eyebrow{font-size:.65rem;letter-spacing:.22em;color:#8a6d2f;margin-bottom:.8rem}
+#destacada .featured-story{line-height:1.9;max-width:58ch;color:#51484b}
+@media(max-width:700px){body{background-attachment:scroll}#destacada .feat:before{top:-2.35rem;font-size:.6rem}#destacada .feat h2{font-size:clamp(2.7rem,12vw,4rem)}}
+@media(prefers-reduced-motion:reduce){body{background-attachment:scroll}}
+
+</style>
 </head>
 <body>
 <div id="reading-progress" aria-hidden="true"></div>
@@ -1013,25 +1041,36 @@ const t=k=>T[lang][k]||k;
 const L=o=>typeof o==="string"?o:o[lang];
 
 function frame(w,alt){
-  if(w.images.length) return '<div class="frame art-frame" data-art-open="'+w.slug+'" role="button" tabindex="0" aria-label="'+t('open_art')+': '+alt+'"><img src="'+w.images[0]+'" alt="'+alt+'" loading="lazy"><span class="frame-explore">'+t('explore_art')+'</span></div>';
-  return '<div class="frame" role="img" aria-label="'+t('no_photo')+': '+w.title+'"><span>'+t('no_photo')+'</span></div>';
+  const safeAlt=String(alt||w.title||"MORFO").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const src=w.images&&w.images.length?encodeURI(w.images[0]):"";
+  if(src) return '<div class="frame art-frame" data-art-open="'+w.slug+'" role="button" tabindex="0" aria-label="'+t('open_art')+': '+safeAlt+'"><img src="'+src+'" alt="'+safeAlt+'" loading="lazy" onerror="this.closest(\'.art-frame\').classList.add(\'image-error\');this.remove()"><span class="frame-explore">'+t('explore_art')+'</span></div>';
+  return '<div class="frame" role="img" aria-label="'+t('no_photo')+': '+safeAlt+'"><span>'+t('no_photo')+'</span></div>';
 }
 function badge(w){return `<span class="badge">${t('st_'+w.status)}</span>`}
 
 function renderHome(){
+  const featured=document.getElementById("featured");
+  const catalog=document.getElementById("catalog");
+  if(!featured||!catalog)return;
+  if(!Array.isArray(WORKS)||WORKS.length===0){
+    featured.innerHTML='<p class="note">'+(lang==="es"?"Próximamente: nueva obra.":"New artwork coming soon.")+'</p>';
+    catalog.innerHTML='';
+    return;
+  }
   const w=WORKS[0];
-  document.getElementById("featured").innerHTML=`
+  featured.innerHTML=`
     ${frame(w,w.title)}
-    <div>
+    <div class="featured-copy">
+      <p class="eyebrow">${lang==="es"?"OBRA DESTACADA":"FEATURED WORK"}</p>
       <h2>${w.title}</h2>
       <p class="meta">${L(w.tech)} · ${L(w.year)}</p>
       ${badge(w)}
-      <p style="margin-bottom:1.5rem">${L(w.story)}</p>
-      <a class="btn" href="#/obra/${w.slug}">${t('feat_link')}</a>
+      <p class="featured-story">${L(w.story)}</p>
+      <a class="btn" href="#/obra/${encodeURIComponent(w.slug)}">${t('feat_link')}</a>
     </div>`;
-  document.getElementById("catalog").innerHTML=WORKS.map(x=>
+  catalog.innerHTML=WORKS.map(x=>
     '<article class="card">'+frame(x,x.title)+
-    '<a class="card-link" href="#/obra/'+x.slug+'"><h3>'+x.title+'</h3>'+
+    '<a class="card-link" href="#/obra/'+encodeURIComponent(x.slug)+'"><h3>'+x.title+'</h3>'+
     '<p>'+L(x.tech)+' · '+L(x.year)+'</p><p style="margin-top:.4rem">'+badge(x)+'</p></a></article>'
   ).join("");
   if(window.morfoRefreshMotion) window.morfoRefreshMotion();
@@ -1053,6 +1092,7 @@ function renderDetail(slug){
       </div>
     </div>`;
   document.title=`${w.title} — MORFO art`;
+  if(window.morfoRefreshMotion) window.morfoRefreshMotion();
   return true;
 }
 function applyLang(){
@@ -1063,7 +1103,9 @@ function applyLang(){
 }
 function route(){
   const m=location.hash.match(/^#\/obra\/(.+)$/);
-  if(m && renderDetail(m[1])){document.body.classList.add("in-detail");window.scrollTo(0,0)}
+  let slug=null;
+  if(m){try{slug=decodeURIComponent(m[1])}catch(_){slug=m[1]}}
+  if(slug && renderDetail(slug)){document.body.classList.add("in-detail");window.scrollTo(0,0)}
   else{document.body.classList.remove("in-detail");document.title="MORFO art — "+(lang==="es"?"Galería virtual":"Virtual gallery")}
 }
 window.addEventListener("hashchange",route);
