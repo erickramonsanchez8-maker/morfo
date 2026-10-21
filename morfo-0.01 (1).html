@@ -1179,10 +1179,10 @@ applyLang();
   const viewerPrev=document.getElementById('viewer-prev');
   const viewerNext=document.getElementById('viewer-next');
   let viewerItems=[],viewerIndex=0,viewerReturnFocus=null;
-  const refreshViewerItems=()=>{viewerItems=WORKS.flatMap(w=>w.images.map((src,imageIndex)=>({w,src,imageIndex})));};
+  const refreshViewerItems=()=>{viewerItems=WORKS.flatMap(w=>(w.images||[]).map((src,imageIndex)=>({w,src,imageIndex})));};
   const showViewerItem=()=>{
     const item=viewerItems[viewerIndex];if(!item)return;
-    viewerImg.classList.remove('is-zoomed');viewerImg.src=item.src;viewerImg.alt=item.w.title;
+    viewerImg.classList.remove('is-zoomed');viewerImg.src=encodeURI(item.src);viewerImg.alt=item.w.title;
     viewerTitle.textContent=item.w.title;viewerMeta.textContent=L(item.w.tech)+' · '+L(item.w.year);
     viewerCounter.textContent=String(viewerIndex+1).padStart(2,'0')+' / '+String(viewerItems.length).padStart(2,'0');
     viewerPrev.hidden=viewerItems.length<2;viewerNext.hidden=viewerItems.length<2;
