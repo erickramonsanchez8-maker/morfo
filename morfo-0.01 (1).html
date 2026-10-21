@@ -772,32 +772,94 @@ body.viewer-open{overflow:hidden}
   .js-motion .reveal.reveal-frame,.js-motion .reveal.reveal-frame img{clip-path:none!important;transform:none!important}
 }
 \n
-/* ===== Superficies minerales: mármol, piedra pulida y papel artístico ===== */
-:root{--mineral-vein:rgba(90,16,40,.075);--mineral-gold:rgba(201,166,92,.13);--stone-light:#f7f4ef;--stone-mid:#e7e1dc}
-body{background-color:#f6f3ee;background-image:radial-gradient(ellipse at 14% 0%,rgba(255,255,255,.9),transparent 42%),radial-gradient(ellipse at 90% 100%,rgba(201,166,92,.035),transparent 38%),linear-gradient(135deg,#f7f4ef,#eee9e3 52%,#f8f5f0);background-attachment:fixed}
-.hero{background:radial-gradient(ellipse at 78% 20%,rgba(255,255,255,.78),transparent 44%),linear-gradient(135deg,#f8f5f0 0%,#e9e3dd 55%,#f6f2ec 100%)!important}
-.hero:before{opacity:.15;background:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.8),transparent 45%),linear-gradient(135deg,transparent 0 65%,rgba(201,166,92,.05) 100%)}
-#destacada{overflow:hidden;background:radial-gradient(ellipse at 12% 0%,rgba(255,255,255,.78),transparent 42%),linear-gradient(135deg,#f8f5ef 0%,#eee8e1 48%,#f6f2ec 100%)!important}
-#destacada:after,#obras:after,#faq:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.12;background:radial-gradient(ellipse at 28% 34%,transparent 0 22%,rgba(119,114,118,.025) 23%,transparent 24% 100%);mix-blend-mode:multiply}
-#destacada .wrap,#obras .wrap,#faq .wrap{position:relative;z-index:1}
-#destacada .feat{column-gap:clamp(2.25rem,7vw,6.5rem)}
-#destacada .feat:before{top:-2.8rem;display:inline-flex;align-items:center;gap:.8rem;padding:.4rem .65rem;border-left:1px solid var(--oro);background:rgba(248,245,239,.62);color:#765d2c;font-size:.68rem;letter-spacing:.24em;backdrop-filter:blur(8px)}
-#destacada .feat h2{font-size:clamp(2.7rem,5.4vw,5.3rem);line-height:1.02;margin:.35rem 0 .7rem}
-#destacada .feat .meta{font-size:.9rem;letter-spacing:.035em}
-#destacada .feat .badge{margin:.2rem 0 1.4rem}
-#destacada .feat .btn{margin-top:.3rem}
-#destacada .frame{border-color:rgba(201,166,92,.42);box-shadow:0 28px 80px rgba(53,8,23,.13),0 2px 8px rgba(52,48,51,.05)}
-#obras{position:relative;overflow:hidden;background:radial-gradient(ellipse at 80% 15%,rgba(255,255,255,.65),transparent 38%),linear-gradient(135deg,#eee8e1,#f8f5ef 58%,#eee8e1)!important}
-#faq{position:relative;overflow:hidden;background:radial-gradient(ellipse at 70% 10%,rgba(255,255,255,.7),transparent 42%),linear-gradient(145deg,#f8f5ef,#eee8e1 52%,#f8f5ef)!important}
-#artista.dark,#contacto.dark{background:radial-gradient(ellipse at 12% 90%,rgba(118,33,61,.55),transparent 38%),repeating-linear-gradient(132deg,transparent 0 150px,rgba(201,166,92,.055) 151px,transparent 153px 300px),linear-gradient(135deg,#211b1f,#30272b 58%,#211b1f)!important}
-.frame{background:linear-gradient(145deg,#e2dbd5,#faf8f4 52%,#d6ccc4)}
-.frame.image-error:after{content:"MORFO · imagen pendiente";position:absolute;inset:auto 1rem 1rem;color:var(--vino);font-size:.75rem;letter-spacing:.08em;background:rgba(248,245,239,.9);padding:.75rem}
-.art-frame img{transition:transform .9s var(--ease-luxe),filter .9s var(--ease-luxe)}
-.art-frame:hover img{filter:saturate(1.04) contrast(1.02)}
-#destacada .featured-copy .eyebrow{font-size:.65rem;letter-spacing:.22em;color:#8a6d2f;margin-bottom:.8rem}
-#destacada .featured-story{line-height:1.9;max-width:58ch;color:#51484b}
-@media(max-width:700px){body{background-attachment:scroll}#destacada .feat:before{top:-2.35rem;font-size:.6rem}#destacada .feat h2{font-size:clamp(2.7rem,12vw,4rem)}}
-@media(prefers-reduced-motion:reduce){body{background-attachment:scroll}}
+
+
+/* ===== MORFO · Rodeo Drive: lujo arquitectónico, luz y piedra cálida =====
+   Sustituye las texturas decorativas por superficies sobrias inspiradas en
+   boutiques de Beverly Hills: travertino claro, estuco mate y metal champagne. */
+:root{
+  --rodeo-ivory:#f8f5ef;
+  --rodeo-limestone:#eee8df;
+  --rodeo-sand:#e4dbcf;
+  --rodeo-taupe:#b6a696;
+  --rodeo-champagne:#c9a65c;
+  --rodeo-ink:#282326;
+}
+body{
+  background-color:var(--rodeo-ivory)!important;
+  background-image:
+    radial-gradient(ellipse at 12% 0%,rgba(255,255,255,.92),transparent 48%),
+    linear-gradient(180deg,#f8f5ef 0%,#f2ede5 52%,#f8f5ef 100%)!important;
+  background-attachment:fixed;
+}
+/* Nada de vetas repetitivas: solo luz rasante y una microtextura casi imperceptible. */
+.hero{
+  background:
+    radial-gradient(ellipse at 76% 24%,rgba(255,255,255,.88),transparent 43%),
+    radial-gradient(ellipse at 8% 100%,rgba(201,166,92,.065),transparent 38%),
+    linear-gradient(118deg,#f7f3ec 0%,#e9e0d5 48%,#f8f5ef 100%)!important;
+}
+.hero:before{
+  opacity:.16!important;
+  background-image:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.55) 48%,transparent 74%)!important;
+}
+#destacada,#obras,#faq,#contacto{
+  background-color:var(--rodeo-ivory)!important;
+}
+#destacada{
+  background:
+    radial-gradient(ellipse at 4% 18%,rgba(255,255,255,.95),transparent 48%),
+    linear-gradient(112deg,#f8f5ef 0%,#f0e9e0 54%,#f7f3ec 100%)!important;
+}
+#obras{
+  background:
+    radial-gradient(ellipse at 88% 5%,rgba(255,255,255,.88),transparent 42%),
+    linear-gradient(125deg,#eee8df 0%,#f8f5ef 47%,#eee7de 100%)!important;
+}
+#faq{
+  background:
+    radial-gradient(ellipse at 76% 0%,rgba(255,255,255,.95),transparent 44%),
+    linear-gradient(145deg,#f8f5ef 0%,#eee7de 56%,#f7f3ec 100%)!important;
+}
+#contacto{
+  background:
+    radial-gradient(ellipse at 82% 16%,rgba(118,33,61,.22),transparent 40%),
+    linear-gradient(118deg,#292528 0%,#342c2d 56%,#211d20 100%)!important;
+}
+/* Retira los puntos, anillos y líneas decorativas que daban aspecto de patrón. */
+#destacada:before,#obras:before,#artista:before,#subastas:before,#faq:before,#contacto:before{
+  opacity:1;
+}
+#destacada:after,#obras:after,#faq:after{
+  display:none!important;
+}
+#destacada:before,#obras:before,#artista:before,#subastas:before,#faq:before,#contacto:before{
+  background:linear-gradient(90deg,transparent,rgba(201,166,92,.34),transparent)!important;
+}
+.frame{
+  background:linear-gradient(135deg,#e8dfd4 0%,#faf8f4 48%,#e1d6ca 100%)!important;
+  border-color:rgba(138,109,47,.24)!important;
+  box-shadow:0 18px 50px rgba(44,34,31,.075),0 1px 0 rgba(255,255,255,.8) inset!important;
+}
+#destacada .frame{
+  box-shadow:0 30px 80px rgba(44,34,31,.13),0 1px 0 rgba(255,255,255,.9) inset!important;
+}
+#subastas .empty{
+  background:linear-gradient(125deg,#fbf8f2 0%,#eee6dc 100%)!important;
+  border-color:rgba(138,109,47,.3)!important;
+  box-shadow:0 20px 55px rgba(44,34,31,.055)!important;
+}
+#artista.dark{
+  background:
+    radial-gradient(ellipse at 10% 95%,rgba(118,33,61,.36),transparent 44%),
+    linear-gradient(118deg,#282326 0%,#373033 54%,#242023 100%)!important;
+}
+footer{
+  background:linear-gradient(112deg,#211d20 0%,#30292b 54%,#211d20 100%)!important;
+}
+@media(max-width:700px){
+  body{background-attachment:scroll!important}
+}
 
 </style>
 </head>
