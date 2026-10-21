@@ -861,6 +861,68 @@ footer{
   body{background-attachment:scroll!important}
 }
 
+
+/* ===== MORFO · mármol natural para la entrada y subastas =====
+   Vetas irregulares y translúcidas, inspiradas en mármol Calacatta:
+   sin mosaicos repetidos, puntos decorativos ni textura de papel. */
+.hero{
+  position:relative;
+  isolation:isolate;
+  background-color:#f5f1ea!important;
+  background-image:
+    linear-gradient(116deg,transparent 0 22%,rgba(165,153,141,.075) 22.2%,rgba(255,255,255,.58) 22.8%,transparent 24.4%),
+    linear-gradient(112deg,transparent 0 48%,rgba(178,164,149,.10) 48.2%,rgba(255,255,255,.65) 48.8%,transparent 50.1%),
+    linear-gradient(123deg,transparent 0 69%,rgba(153,143,132,.075) 69.2%,rgba(255,255,255,.62) 69.7%,transparent 71.2%),
+    radial-gradient(ellipse at 15% 20%,rgba(255,255,255,.96),transparent 45%),
+    linear-gradient(135deg,#f8f5ef 0%,#e8e0d6 48%,#f7f3ec 100%)!important;
+}
+.hero:before{
+  opacity:.56!important;
+  background-image:
+    linear-gradient(157deg,transparent 0 34%,rgba(153,143,132,.09) 34.08%,rgba(255,255,255,.72) 34.22%,transparent 34.6%),
+    linear-gradient(23deg,transparent 0 62%,rgba(153,143,132,.07) 62.1%,rgba(255,255,255,.8) 62.24%,transparent 62.7%)!important;
+}
+.hero:after{
+  opacity:.12!important;
+  background-image:linear-gradient(90deg,rgba(255,255,255,.12),transparent 35%,rgba(255,255,255,.18))!important;
+}
+#subastas{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background-color:#eee8df!important;
+  background-image:
+    linear-gradient(128deg,transparent 0 17%,rgba(157,146,134,.085) 17.12%,rgba(255,255,255,.8) 17.42%,transparent 18.1%),
+    linear-gradient(122deg,transparent 0 39%,rgba(167,155,143,.10) 39.15%,rgba(255,255,255,.78) 39.42%,transparent 40.1%),
+    linear-gradient(118deg,transparent 0 74%,rgba(157,146,134,.075) 74.15%,rgba(255,255,255,.82) 74.42%,transparent 75.1%),
+    radial-gradient(ellipse at 80% 12%,rgba(255,255,255,.82),transparent 45%),
+    linear-gradient(135deg,#f7f3ec 0%,#e7ded3 52%,#f4efe7 100%)!important;
+}
+#subastas:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.72;
+  background-image:
+    linear-gradient(151deg,transparent 0 26%,rgba(142,132,123,.08) 26.08%,rgba(255,255,255,.75) 26.22%,transparent 26.65%),
+    linear-gradient(28deg,transparent 0 58%,rgba(142,132,123,.075) 58.1%,rgba(255,255,255,.78) 58.25%,transparent 58.7%);
+}
+#subastas .wrap{position:relative;z-index:1}
+#subastas .empty{
+  background:rgba(250,247,241,.78)!important;
+  border-color:rgba(138,109,47,.32)!important;
+  box-shadow:0 20px 55px rgba(44,34,31,.07),inset 0 1px rgba(255,255,255,.8)!important;
+  backdrop-filter:blur(3px);
+}
+@media(max-width:700px){
+  .hero,#subastas{background-attachment:scroll!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero:before,#subastas:before{transition:none!important}
+}
+
 </style>
 </head>
 <body>
