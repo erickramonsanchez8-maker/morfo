@@ -1236,6 +1236,7 @@ function renderDetail(slug){
       <div>
         <h1>${w.title}</h1>
         ${badge(w)}
+        ${w.sample?'<p class="demo-notice">'+(lang==='es'?'OBRA FICTICIA DE DEMOSTRACIÓN · NO ES UNA OBRA ORIGINAL DE FER':'FICTIONAL DEMO ARTWORK · NOT AN ORIGINAL BY FER')+'</p>':''}
         <dl>${rows}</dl>
         <div class="story"><h2>${t('story')}</h2><p>${L(w.story)}</p>
         <p class="note">${t('draft')}</p></div>
