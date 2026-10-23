@@ -1221,7 +1221,7 @@ function renderHome(){
   catalog.innerHTML=WORKS.map(x=>
     '<article class="card">'+frame(x,x.title)+
     '<a class="card-link" href="#/obra/'+encodeURIComponent(x.slug)+'"><h3>'+x.title+'</h3>'+
-    '<p>'+L(x.tech)+' · '+L(x.year)+'</p>'+(x.demoPrice?'<p class="art-price">'+L(x.demoPrice)+'</p>':'')+'<p style="margin-top:.4rem">'+badge(x)+'</p></a></article>'
+    '<p>'+L(x.tech)+' · '+L(x.year)+'</p>'+(x.demoPrice?'<p class="art-price">'+L(x.demoPrice)+'</p>':'')+'<p style="margin-top:.4rem">'+badge(x)+'</p>'+(x.sample?'<p class="demo-notice">'+(lang==='es'?'OBRA FICTICIA · DEMOSTRACIÓN':'FICTIONAL ARTWORK · DEMO')+'</p>':'')+'</a></article>'
   ).join("");
   if(window.morfoRefreshMotion) window.morfoRefreshMotion();
 }
