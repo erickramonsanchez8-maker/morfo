@@ -923,6 +923,9 @@ footer{
   .hero:before,#subastas:before{transition:none!important}
 }
 
+
+/* MORFO gallery presentation */
+#obras{background:#e9e5e1!important}#obras .grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(1.5rem,3vw,3rem)}#obras .frame{aspect-ratio:3/4;background:#292327;border:0;padding:0;box-shadow:0 18px 38px rgba(31,22,26,.13)}#obras .frame img{object-fit:contain;padding:1.1rem;background:radial-gradient(ellipse at 50% 45%,#494046,#211d20 76%);transition:transform 1.1s var(--ease-luxe)}#obras .card:hover .frame img{transform:scale(1.035)}#obras .frame:after{inset:13px;border-color:rgba(201,166,92,.38)}#obras .card-link h3{font-size:1.85rem}#obras .card-link p{font-size:.82rem}.detail-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem}.auction-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.8fr);gap:clamp(1.5rem,4vw,4rem);align-items:center}.auction-art{background:#252225;padding:clamp(1rem,3vw,2rem);position:relative}.auction-art img{width:100%;height:clamp(280px,42vw,500px);object-fit:contain;filter:drop-shadow(0 20px 28px rgba(0,0,0,.28))}.auction-art:after{content:"";position:absolute;inset:12px;border:1px solid rgba(201,166,92,.32);pointer-events:none}.auction-copy h3{font-size:clamp(2rem,4vw,3rem);margin:.7rem 0}.auction-kicker{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--vino-rico)}.auction-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;border-block:1px solid rgba(90,16,40,.2);padding:1rem 0;margin:1.25rem 0}.auction-stats small{display:block;color:var(--gris);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em}.auction-stats strong{display:block;font:1.55rem var(--serif);color:var(--vino)}.demo-notice{font-size:.78rem;color:#776d70;margin-top:.85rem;line-height:1.6}.bid-form{display:flex;gap:.6rem;align-items:end;flex-wrap:wrap;margin-top:1rem}.bid-form .field{flex:1 1 150px;margin:0}@media(max-width:760px){.auction-layout{grid-template-columns:1fr}.auction-art img{height:340px}}@media(prefers-reduced-motion:reduce){#obras .frame img{transition:none}}
 </style>
 </head>
 <body>
@@ -1104,7 +1107,7 @@ k_msg:"Mensaje", k_btn:"Enviar mensaje",
 demo_ok:"Demostración: el formulario aún no envía nada. Tu mensaje no se guardó.", demo_err:"Completa los campos obligatorios con datos válidos.",
 l_terms:"Términos y condiciones (borrador)", l_rules:"Reglas de subasta (borrador)", l_priv:"Privacidad (borrador)", l_ship:"Envíos y devoluciones (borrador)", l_copy:"Derechos de autor y uso de imágenes (borrador)",
 l_note:"Textos legales provisionales, pendientes de revisión legal.", l_rights:"Todos los derechos reservados.",
-feat_link:"Ver ficha de la obra", open_art:"Abrir obra", explore_art:"Explorar obra", viewer_hint:"Haz clic en la obra para ampliar · Esc para salir"
+feat_link:"Ver ficha de la obra", open_art:"Abrir obra", explore_art:"Contemplar obra", viewer_hint:"Haz clic en la obra para ampliar · Esc para salir", buy_cta:"Consultar compra", auction_cta:"Ver subasta", buy_note:"Precio de muestra para diseñar la experiencia; no es una oferta comercial.", auction_kicker:"SUBASTA DE DEMOSTRACIÓN", auction_current:"Oferta actual (ficticia)", auction_start:"Precio de salida (ficticio)", auction_bid:"Tu oferta de prueba (MXN)", auction_send:"Probar oferta", auction_notice:"Demostración: no se registra ni transmite ninguna oferta. Cantidades y plazo ficticios.", auction_feedback:"La prueba visual funcionó; no se guardó ninguna oferta."
 },
 en:{
 ver:"MORFO STUDIO · CONTEMPORARY ART GALLERY · PRELIMINARY EDITION",
@@ -1140,7 +1143,7 @@ k_msg:"Message", k_btn:"Send message",
 demo_ok:"Demo: this form doesn’t send anything yet. Your message was not saved.", demo_err:"Please complete the required fields with valid data.",
 l_terms:"Terms and conditions (draft)", l_rules:"Auction rules (draft)", l_priv:"Privacy (draft)", l_ship:"Shipping and returns (draft)", l_copy:"Copyright and image use (draft)",
 l_note:"Provisional legal texts, pending legal review.", l_rights:"All rights reserved.",
-feat_link:"View work details", open_art:"Open artwork", explore_art:"Explore artwork", viewer_hint:"Click the artwork to zoom · Esc to close"
+feat_link:"View work details", open_art:"Open artwork", explore_art:"View artwork", viewer_hint:"Click the artwork to zoom · Esc to close", buy_cta:"Enquire about purchase", auction_cta:"View auction", buy_note:"Sample price for designing the experience; not a commercial offer.", auction_kicker:"DEMO AUCTION", auction_current:"Current bid (fictional)", auction_start:"Starting price (fictional)", auction_bid:"Your test bid (MXN)", auction_send:"Test a bid", auction_notice:"Demo only: no bid is recorded or transmitted. Amounts and timing are fictional.", auction_feedback:"The interface test worked; no bid was saved."
 }};
 
 /* ===== Catálogo: añadir obras aquí (luego vendrá del panel de administración) =====
@@ -1148,16 +1151,31 @@ feat_link:"View work details", open_art:"Open artwork", explore_art:"Explore art
    images: rutas de fotografías auténticas, p. ej. ["assets/obras/el-testigo-1.jpg"]
    Campos sin confirmar se omiten: no se muestran en la ficha. */
 const WORKS=[{
-  slug:"ejemplo", title:"Ejemplo", status:"exposicion", images:["1ra pintura.jpg"],
-  year:{es:"2026 (referencia provisional)",en:"2026 (provisional reference)"},
+  slug:"ejemplo", title:"El testigo", status:"exposicion", images:["1ra pintura.jpg"],
+  year:{es:"2026 · referencia provisional",en:"2026 · provisional reference"},
   tech:{es:"Técnica y soporte por confirmar",en:"Medium and support to be confirmed"},
   dims:{es:"Dimensiones por confirmar",en:"Dimensions to be confirmed"},
   state:{es:"Estado de conservación por confirmar",en:"Conservation condition to be confirmed"},
   sign:{es:"Firma por confirmar",en:"Signature to be confirmed"},
-  story:{
-    es:"Descripción ficticia de demostración: los colores y las formas se encuentran en tensión, como si distintas emociones intentaran ocupar el mismo espacio. Las líneas interrumpidas sugieren una identidad en transformación. Este texto es provisional y no describe la historia real de la obra.",
-    en:"Fictional demonstration description: colors and shapes exist in tension, as if different emotions were trying to occupy the same space. Interrupted lines suggest an identity in transformation. This text is provisional and does not describe the artwork's real story."
-  }
+  story:{es:"Ficha provisional: esta obra se presenta como pieza destacada mientras se confirman los datos técnicos y el texto definitivo con la artista.",en:"Provisional entry: this work is featured while technical details and the final statement are confirmed with the artist."}
+},{
+  slug:"la-habitacion-interior", title:"La habitación interior", status:"disponible", images:["assets/obras/la-habitacion-interior-demo.svg"],
+  year:{es:"2026 · obra ficticia",en:"2026 · fictional sample"},
+  tech:{es:"Composición digital expresionista · ejemplo",en:"Expressionist digital composition · sample"},
+  dims:{es:"Formato digital de demostración",en:"Demonstration digital format"},
+  state:{es:"Obra de ejemplo, no original de la artista",en:"Sample artwork, not an original by the artist"},
+  sign:{es:"Sin firma · obra ficticia",en:"Unsigned · fictional sample"},
+  demoPrice:{es:"$8,500 MXN · precio ficticio",en:"MXN $8,500 · fictional sample price"},
+  story:{es:"Obra ficticia creada únicamente para probar la experiencia de galería. Un rostro emerge de capas de vino, sombra y luz cálida. No es una pintura real de Fer ni está a la venta.",en:"Fictional artwork created only to test the gallery experience. A face emerges from layers of wine, shadow and warm light. It is not a real painting by Fer and is not for sale."}
+},{
+  slug:"el-peso-del-silencio", title:"El peso del silencio", status:"subasta", images:["assets/obras/el-peso-del-silencio-demo.svg"],
+  year:{es:"2026 · obra ficticia",en:"2026 · fictional sample"},
+  tech:{es:"Composición digital expresionista · ejemplo",en:"Expressionist digital composition · sample"},
+  dims:{es:"Formato digital de demostración",en:"Demonstration digital format"},
+  state:{es:"Obra de ejemplo, no original de la artista",en:"Sample artwork, not an original by the artist"},
+  sign:{es:"Sin firma · obra ficticia",en:"Unsigned · fictional sample"},
+  demoPrice:{es:"Oferta actual de muestra: $4,200 MXN",en:"Sample current bid: MXN $4,200"},
+  story:{es:"Pieza ficticia para diseñar la experiencia de subasta: fragmentos de rostro, azul mineral y líneas doradas sugieren aquello que no logra decirse. La obra y las cantidades son demostrativas; no se aceptan ofertas reales.",en:"Fictional piece for designing the auction experience: fragments of a face, mineral blue and gold lines suggest what cannot be said. The artwork and amounts are illustrative; real bids are not accepted."}
 }];
 
 let lang="es";
