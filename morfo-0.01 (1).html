@@ -996,15 +996,23 @@ footer{
   <section id="subastas">
     <div class="wrap">
       <h2 data-i18n="s_title"></h2>
-      <div class="empty">
-        <h3 data-i18n="s_empty_t"></h3>
-        <p data-i18n="s_empty_p"></p>
-        <form class="inline" data-demo novalidate>
-          <label class="hp" for="hp1">Web</label><input class="hp" id="hp1" name="web" tabindex="-1" autocomplete="off">
-          <div style="flex:1 1 240px"><label for="mail1" data-i18n="s_mail"></label><input id="mail1" type="email" autocomplete="email" required></div>
-          <div style="align-self:end"><button class="btn" type="submit" data-i18n="s_btn"></button></div>
-        </form>
-        <p class="note" role="status" aria-live="polite" data-msg></p>
+      <div class="auction-layout">
+        <div class="auction-art"><img src="assets/obras/el-peso-del-silencio-demo.svg" alt="El peso del silencio, obra ficticia de demostración" loading="lazy"></div>
+        <div class="auction-copy">
+          <p class="auction-kicker" data-i18n="auction_kicker"></p>
+          <h3>El peso del silencio</h3>
+          <p data-i18n="s_empty_p"></p>
+          <div class="auction-stats">
+            <div><small data-i18n="auction_current"></small><strong>$4,200 MXN</strong></div>
+            <div><small data-i18n="auction_start"></small><strong>$3,500 MXN</strong></div>
+          </div>
+          <form class="bid-form" id="bid-demo">
+            <div class="field"><label for="bid-amount" data-i18n="auction_bid"></label><input id="bid-amount" type="number" min="4300" step="100" placeholder="4300" required></div>
+            <button class="btn" type="submit" data-i18n="auction_send"></button>
+          </form>
+          <p class="demo-notice" data-i18n="auction_notice"></p>
+          <p class="note" id="bid-feedback" role="status" aria-live="polite"></p>
+        </div>
       </div>
     </div>
   </section>
@@ -1107,7 +1115,7 @@ k_msg:"Mensaje", k_btn:"Enviar mensaje",
 demo_ok:"Demostración: el formulario aún no envía nada. Tu mensaje no se guardó.", demo_err:"Completa los campos obligatorios con datos válidos.",
 l_terms:"Términos y condiciones (borrador)", l_rules:"Reglas de subasta (borrador)", l_priv:"Privacidad (borrador)", l_ship:"Envíos y devoluciones (borrador)", l_copy:"Derechos de autor y uso de imágenes (borrador)",
 l_note:"Textos legales provisionales, pendientes de revisión legal.", l_rights:"Todos los derechos reservados.",
-feat_link:"Ver ficha de la obra", open_art:"Abrir obra", explore_art:"Contemplar obra", viewer_hint:"Haz clic en la obra para ampliar · Esc para salir", buy_cta:"Consultar compra", auction_cta:"Ver subasta", buy_note:"Precio de muestra para diseñar la experiencia; no es una oferta comercial.", auction_kicker:"SUBASTA DE DEMOSTRACIÓN", auction_current:"Oferta actual (ficticia)", auction_start:"Precio de salida (ficticio)", auction_bid:"Tu oferta de prueba (MXN)", auction_send:"Probar oferta", auction_notice:"Demostración: no se registra ni transmite ninguna oferta. Cantidades y plazo ficticios.", auction_feedback:"La prueba visual funcionó; no se guardó ninguna oferta."
+feat_link:"Ver ficha de la obra", open_art:"Abrir obra", explore_art:"Contemplar obra", viewer_hint:"Haz clic en la obra para ampliar · Esc para salir", buy_cta:"Simular consulta", auction_cta:"Ver subasta", buy_note:"Precio de muestra para diseñar la experiencia; no es una oferta comercial.", auction_kicker:"SUBASTA DE DEMOSTRACIÓN", auction_current:"Oferta actual (ficticia)", auction_start:"Precio de salida (ficticio)", auction_bid:"Tu oferta de prueba (MXN)", auction_send:"Probar oferta", auction_notice:"Demostración: no se registra ni transmite ninguna oferta. Cantidades y plazo ficticios.", auction_feedback:"La prueba visual funcionó; no se guardó ninguna oferta."
 },
 en:{
 ver:"MORFO STUDIO · CONTEMPORARY ART GALLERY · PRELIMINARY EDITION",
@@ -1143,7 +1151,7 @@ k_msg:"Message", k_btn:"Send message",
 demo_ok:"Demo: this form doesn’t send anything yet. Your message was not saved.", demo_err:"Please complete the required fields with valid data.",
 l_terms:"Terms and conditions (draft)", l_rules:"Auction rules (draft)", l_priv:"Privacy (draft)", l_ship:"Shipping and returns (draft)", l_copy:"Copyright and image use (draft)",
 l_note:"Provisional legal texts, pending legal review.", l_rights:"All rights reserved.",
-feat_link:"View work details", open_art:"Open artwork", explore_art:"View artwork", viewer_hint:"Click the artwork to zoom · Esc to close", buy_cta:"Enquire about purchase", auction_cta:"View auction", buy_note:"Sample price for designing the experience; not a commercial offer.", auction_kicker:"DEMO AUCTION", auction_current:"Current bid (fictional)", auction_start:"Starting price (fictional)", auction_bid:"Your test bid (MXN)", auction_send:"Test a bid", auction_notice:"Demo only: no bid is recorded or transmitted. Amounts and timing are fictional.", auction_feedback:"The interface test worked; no bid was saved."
+feat_link:"View work details", open_art:"Open artwork", explore_art:"View artwork", viewer_hint:"Click the artwork to zoom · Esc to close", buy_cta:"Simulate purchase enquiry", auction_cta:"View auction", buy_note:"Sample price for designing the experience; not a commercial offer.", auction_kicker:"DEMO AUCTION", auction_current:"Current bid (fictional)", auction_start:"Starting price (fictional)", auction_bid:"Your test bid (MXN)", auction_send:"Test a bid", auction_notice:"Demo only: no bid is recorded or transmitted. Amounts and timing are fictional.", auction_feedback:"The interface test worked; no bid was saved."
 }};
 
 /* ===== Catálogo: añadir obras aquí (luego vendrá del panel de administración) =====
@@ -1213,7 +1221,7 @@ function renderHome(){
   catalog.innerHTML=WORKS.map(x=>
     '<article class="card">'+frame(x,x.title)+
     '<a class="card-link" href="#/obra/'+encodeURIComponent(x.slug)+'"><h3>'+x.title+'</h3>'+
-    '<p>'+L(x.tech)+' · '+L(x.year)+'</p><p style="margin-top:.4rem">'+badge(x)+'</p></a></article>'
+    '<p>'+L(x.tech)+' · '+L(x.year)+'</p>'+(x.demoPrice?'<p class="art-price">'+L(x.demoPrice)+'</p>':'')+'<p style="margin-top:.4rem">'+badge(x)+'</p></a></article>'
   ).join("");
   if(window.morfoRefreshMotion) window.morfoRefreshMotion();
 }
@@ -1231,6 +1239,8 @@ function renderDetail(slug){
         <dl>${rows}</dl>
         <div class="story"><h2>${t('story')}</h2><p>${L(w.story)}</p>
         <p class="note">${t('draft')}</p></div>
+        ${w.status==='disponible'?'<div class="detail-actions"><button class="btn" type="button" data-buy-work="'+w.slug+'">'+t('buy_cta')+'</button></div><p class="demo-notice">'+t('buy_note')+'</p>':''}
+        ${w.status==='subasta'?'<div class="detail-actions"><a class="btn" href="#subastas">'+t('auction_cta')+'</a></div>':''}
       </div>
     </div>`;
   document.title=`${w.title} — MORFO art`;
@@ -1268,6 +1278,27 @@ document.querySelectorAll("form[data-demo]").forEach(f=>f.addEventListener("subm
 }));
 
 applyLang();
+
+/* Prototipos comerciales: ningún dato se envía ni se guarda. */
+document.addEventListener('click',e=>{
+  const buy=e.target.closest&&e.target.closest('[data-buy-work]');
+  if(!buy)return;
+  const work=WORKS.find(w=>w.slug===buy.dataset.buyWork);
+  if(!work)return;
+  location.hash='#contacto';
+  const topic=document.getElementById('k_topic');
+  const msg=document.getElementById('k_msg');
+  if(topic)topic.selectedIndex=0;
+  if(msg)msg.value=(lang==='es'?'Quiero probar la consulta sobre la obra de ejemplo: ':'I want to test an enquiry about the sample artwork: ')+work.title+'. '+(lang==='es'?'Entiendo que la web aún no procesa compras.':'I understand this website does not process purchases yet.');
+  setTimeout(()=>document.getElementById('k_name')?.focus(),250);
+});
+document.getElementById('bid-demo')?.addEventListener('submit',e=>{
+  e.preventDefault();
+  const amount=Number(document.getElementById('bid-amount').value);
+  const feedback=document.getElementById('bid-feedback');
+  feedback.textContent=amount>4200?t('auction_feedback'):(lang==='es'?'La oferta de prueba debe superar $4,200 MXN.':'The test bid must be higher than MXN $4,200.');
+  document.getElementById('bid-amount').setAttribute('aria-invalid',String(amount<=4200));
+});
 
 /* ===== Microinteracciones premium; se desactivan con movimiento reducido ===== */
 (function(){
