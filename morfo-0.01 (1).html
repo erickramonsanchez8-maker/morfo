@@ -940,6 +940,64 @@ body.gallery-rail-visible .gallery-rail{opacity:1;pointer-events:auto}
 @media(max-width:760px){.gallery-rail{right:8px;gap:12px;padding:12px 7px}.gallery-rail-label{font-size:8px}.gallery-rail a{width:19px;height:19px;font-size:8px}}
 @media(prefers-reduced-motion:reduce){.gallery-rail,.gallery-rail a,.gallery-rail a i,.gallery-rail a span{transition:none}}
 
+
+/* ===== MORFO 0.02 · El umbral: una entrada editorial a la galería ===== */
+.hero-actions{display:flex;align-items:center;gap:1.35rem;flex-wrap:wrap}
+.hero-secondary{display:inline-flex;align-items:center;gap:.65rem;color:var(--carbon);text-decoration:none;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid rgba(90,16,40,.34);padding:.85rem 0;transition:gap .35s var(--ease-luxe),color .3s ease,border-color .3s ease}
+.hero-secondary span{font-size:1rem;color:var(--guinda)}
+.hero-secondary:hover{gap:1rem;color:var(--guinda);border-color:var(--guinda)}
+.threshold{position:relative;isolation:isolate;overflow:hidden;padding:clamp(3rem,7vw,6rem) 0;background:linear-gradient(112deg,#211b1f 0%,#30262b 52%,#211b1f 100%);color:var(--claro)}
+.threshold:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 82% 45%,rgba(118,33,61,.28),transparent 46%),linear-gradient(115deg,transparent 0 49.8%,rgba(201,166,92,.08) 50%,transparent 50.2%);opacity:.9}
+.threshold-inner{position:relative;display:grid;grid-template-columns:minmax(100px,.45fr) minmax(0,2.2fr) minmax(170px,.8fr);align-items:center;gap:clamp(1.25rem,4vw,4rem);min-height:190px}
+.threshold-index{align-self:start;display:flex;align-items:center;gap:.8rem;color:var(--oro);font-size:.66rem;letter-spacing:.19em;writing-mode:vertical-rl;transform:rotate(180deg)}
+.threshold-index span:first-child{font:1.15rem var(--serif);letter-spacing:0}
+.threshold-index i{display:block;width:1px;height:44px;background:linear-gradient(var(--oro),transparent)}
+.threshold-copy h2{font-size:clamp(2.4rem,5.2vw,5rem);line-height:.98;letter-spacing:-.035em;max-width:12ch;margin:0 0 1.2rem;color:#f8f2e8}
+.threshold-copy p{max-width:44ch;color:#c9bec0;font-size:.95rem;line-height:1.9}
+.threshold-enter{justify-self:end;display:flex;align-items:center;gap:1.2rem;max-width:230px;padding:1.1rem 0;background:none;border:0;border-bottom:1px solid rgba(201,166,92,.55);color:#f5eee4;font:inherit;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-align:left;transition:gap .35s var(--ease-luxe),color .3s ease}
+.threshold-enter b{display:grid;place-items:center;width:34px;height:34px;flex:0 0 34px;border:1px solid rgba(201,166,92,.55);border-radius:50%;font-size:1rem;font-weight:400;color:var(--oro);transition:background .3s ease,color .3s ease,transform .35s var(--ease-luxe)}
+.threshold-enter:hover{gap:1.7rem;color:var(--oro-luz)}
+.threshold-enter:hover b{background:var(--oro);color:var(--carbon-2);transform:translate(2px,2px)}
+.threshold-side{position:absolute;right:0;bottom:0;color:rgba(248,245,239,.32);font-size:.57rem;letter-spacing:.24em;writing-mode:vertical-rl}
+#destacada{scroll-margin-top:95px}
+#destacada .feat{gap:clamp(2rem,7vw,6rem)}
+#destacada .frame{position:relative;isolation:isolate;overflow:hidden;background:#211b1f!important;border:1px solid rgba(201,166,92,.25)!important;padding:clamp(1rem,2.3vw,1.8rem)!important;box-shadow:0 28px 70px rgba(35,24,28,.17),inset 0 0 0 1px rgba(255,255,255,.08)!important}
+#destacada .frame img{background:radial-gradient(ellipse at 50% 45%,#493b41,#211b1f 74%);object-fit:contain;transition:transform 1.2s var(--ease-luxe),filter .8s ease}
+#destacada .frame:hover img{transform:scale(1.025);filter:contrast(1.025)}
+#destacada .featured-copy .eyebrow{margin-bottom:1.2rem!important}
+#destacada .featured-copy h2{font-size:clamp(2.8rem,5.5vw,5rem);letter-spacing:-.025em}
+#destacada .featured-story{max-width:48ch;line-height:1.9;margin:1.5rem 0 1.8rem;color:#51494b}
+#obras .card{position:relative;padding-bottom:.7rem}
+#obras .card .frame{overflow:hidden;position:relative}
+#obras .card .frame:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(20,16,19,.06),transparent 28%,transparent 70%,rgba(20,16,19,.18))}
+#obras .card .frame:after{content:"";position:absolute;inset:12px;z-index:2;pointer-events:none;border:1px solid rgba(201,166,92,.34);opacity:.75;transition:inset .6s var(--ease-luxe),opacity .4s ease}
+#obras .card:hover .frame:after{inset:19px;opacity:1}
+#obras .card-link{display:block;text-decoration:none;padding:.15rem .2rem}
+#obras .card-link h3{transition:transform .4s var(--ease-luxe),color .3s ease;transform-origin:left}
+#obras .card:hover .card-link h3{transform:translateX(4px);color:var(--guinda)}
+#obras .card-link .badge{font-size:.67rem;letter-spacing:.06em;text-transform:uppercase}
+.gallery-rail{box-shadow:0 10px 35px rgba(0,0,0,.12)}
+@media(max-width:820px){
+ .hero-actions{gap:.8rem 1.1rem}
+ .threshold-inner{grid-template-columns:32px minmax(0,1fr);gap:1.1rem}
+ .threshold-copy h2{font-size:clamp(2.4rem,9vw,4rem)}
+ .threshold-enter{grid-column:2;justify-self:start;margin-top:.4rem}
+ .threshold-side{right:0;font-size:.5rem}
+}
+@media(max-width:480px){
+ .hero-actions{align-items:flex-start;flex-direction:column;gap:.4rem}
+ .hero-secondary{padding:.45rem 0}
+ .threshold{padding:3.5rem 0}
+ .threshold-inner{grid-template-columns:22px minmax(0,1fr);gap:.9rem}
+ .threshold-index{font-size:.55rem}
+ .threshold-copy h2{max-width:10ch}
+ .threshold-copy p{font-size:.9rem}
+ .threshold-side{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero-secondary,.threshold-enter,.threshold-enter b,#destacada .frame img,#obras .card .frame:after,#obras .card-link h3{transition:none!important}
+}
+
 </style>
 </head>
 <body>
@@ -981,7 +1039,7 @@ body.gallery-rail-visible .gallery-rail{opacity:1;pointer-events:auto}
         <p class="eyebrow" data-i18n="h_eyebrow"></p>
         <h1 data-i18n="h_title"></h1>
         <p data-i18n="h_text"></p>
-        <a class="btn" href="#obras" data-i18n="h_cta"></a>
+        <div class="hero-actions"><a class="btn" href="#obras" data-i18n="h_cta"></a><a class="hero-secondary" href="#morfo-threshold" data-i18n="h_secondary">Entrar en MORFO <span aria-hidden="true">↘</span></a></div>
       </div>
       <div class="hero-logo">
         <img src="WhatsApp_Image_2026-10-19_at_4.53.13_PM-removebg-preview.png" width="1024" height="1024" alt="Logotipo de MORFO art: mariposa guinda y dorada" fetchpriority="high">
@@ -989,6 +1047,18 @@ body.gallery-rail-visible .gallery-rail{opacity:1;pointer-events:auto}
     </div>
   </div>
   <div class="hero-signature wrap" aria-hidden="true"><span>EST. 2026</span><span class="signature-line"></span><span>ARTE · IDENTIDAD · EMOCIÓN</span></div>
+
+  <section class="threshold" id="morfo-threshold" aria-labelledby="threshold-title">
+    <div class="wrap threshold-inner">
+      <p class="threshold-index"><span>01</span><i></i><span data-i18n="threshold_kicker">EL UMBRAL</span></p>
+      <div class="threshold-copy">
+        <h2 id="threshold-title" data-i18n="threshold_title">No entres a mirar. Entra a sentir.</h2>
+        <p data-i18n="threshold_text">Cada obra es una habitación emocional. Tómate tu tiempo; no hay una forma correcta de mirar.</p>
+      </div>
+      <button class="threshold-enter" id="start-gallery" type="button"><span data-i18n="threshold_cta">Comenzar el recorrido</span><b aria-hidden="true">↘</b></button>
+      <span class="threshold-side" aria-hidden="true">MORFO · 2026</span>
+    </div>
+  </section>
 
   <section id="destacada">
     <div class="wrap feat" id="featured"></div>
@@ -1110,6 +1180,11 @@ menu:"Menú", n_obras:"Obras", n_artista:"La artista", n_subastas:"Subastas", n_
 h_title:"Caras que no buscan ser bellas, buscan ser honestas.",
 h_text:"MORFO es una galería virtual de obra original: rostros deformados, color de alto impacto y emociones que no se maquillan.",
 h_cta:"Ver las obras",
+h_secondary:"Entrar en MORFO",
+threshold_kicker:"EL UMBRAL",
+threshold_title:"No entres a mirar. Entra a sentir.",
+threshold_text:"Cada obra es una habitación emocional. Tómate tu tiempo; no hay una forma correcta de mirar.",
+threshold_cta:"Comenzar el recorrido",
 c_title:"Obras", c_text:"Cada pieza tiene su propia historia y su estado comercial claro.",
 view:"Ver ficha", back:"← Volver a las obras",
 st_exposicion:"Obra en exposición — no disponible para venta",
@@ -1146,6 +1221,11 @@ menu:"Menu", n_obras:"Works", n_artista:"The artist", n_subastas:"Auctions", n_f
 h_title:"Faces that don’t try to be beautiful. They try to be honest.",
 h_text:"MORFO is a virtual gallery of original work: distorted faces, high-impact color and emotions left unpolished.",
 h_cta:"View the works",
+h_secondary:"Enter MORFO",
+threshold_kicker:"THE THRESHOLD",
+threshold_title:"Don't come just to look. Come to feel.",
+threshold_text:"Each artwork is an emotional room. Take your time; there is no correct way to look.",
+threshold_cta:"Begin the journey",
 c_title:"Works", c_text:"Every piece has its own story and a clear commercial status.",
 view:"View details", back:"← Back to works",
 st_exposicion:"On display — not for sale",
@@ -1428,6 +1508,14 @@ document.getElementById('bid-demo')?.addEventListener('submit',e=>{
 
 })();
 
+
+/* La entrada inicia la visita en la primera obra, no en una lista de productos. */
+document.getElementById('start-gallery')?.addEventListener('click',()=>{
+  const target=document.getElementById('destacada');
+  if(!target)return;
+  document.body.classList.add('gallery-journey-started');
+  target.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+});
 
 /* Recorrido discreto: aparece después de la portada y marca la sala actual. */
 (function(){
