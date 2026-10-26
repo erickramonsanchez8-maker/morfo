@@ -998,6 +998,34 @@ body.gallery-rail-visible .gallery-rail{opacity:1;pointer-events:auto}
  .hero-secondary,.threshold-enter,.threshold-enter b,#destacada .frame img,#obras .card .frame:after,#obras .card-link h3{transition:none!important}
 }
 
+
+/* ===== MORFO · visita privada: la historia aparece bajo demanda ===== */
+.viewer-shell{gap:clamp(.55rem,1.4vh,1rem)}
+.viewer-topline{padding-inline:clamp(.15rem,1vw,.8rem)}
+.viewer-stage{background:radial-gradient(ellipse at 50% 42%,rgba(118,33,61,.24),transparent 56%),linear-gradient(135deg,rgba(52,48,51,.32),rgba(18,15,17,.1))}
+.viewer-stage img{animation:viewer-arrive .85s cubic-bezier(.2,.7,.2,1) both}
+.viewer-edition{display:block!important;margin-bottom:.8rem!important;color:#C9A65C!important;font-size:.58rem!important;letter-spacing:.22em!important}
+.viewer-caption{bottom:clamp(1rem,3vh,2rem);padding:1.2rem 1rem .65rem;background:linear-gradient(180deg,transparent,rgba(18,15,17,.68) 26%,rgba(18,15,17,.82));border-radius:2px}
+.viewer-caption strong{letter-spacing:-.015em}
+.viewer-story-toggle{display:inline-flex;align-items:center;gap:.65rem;margin-top:.8rem;padding:.45rem .15rem;border:0;border-bottom:1px solid rgba(201,166,92,.52);background:transparent;color:#E9E5E1;font:inherit;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:color .25s ease,gap .3s ease}
+.viewer-story-toggle span{color:#C9A65C;font-size:1rem}
+.viewer-story-toggle:hover{color:#C9A65C;gap:.9rem}
+.viewer-story{max-width:54ch;margin:.8rem auto 0!important;color:rgba(248,245,239,.82)!important;font-size:.8rem!important;line-height:1.8!important;text-shadow:none!important;pointer-events:auto!important;animation:viewer-story-in .35s ease both}
+.viewer-story[hidden]{display:none!important}
+.viewer-footer{padding-inline:clamp(.15rem,1vw,.8rem)}
+#obras .wrap>h2{max-width:12ch}
+#obras .wrap>p[data-i18n="c_text"]{max-width:48ch;line-height:1.8}
+#obras .card .frame-explore{letter-spacing:.16em}
+@keyframes viewer-arrive{from{opacity:0;transform:translateY(8px) scale(.985);filter:blur(3px) drop-shadow(0 24px 60px rgba(0,0,0,.32))}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0) drop-shadow(0 24px 60px rgba(0,0,0,.32))}}
+@keyframes viewer-story-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px){
+ .viewer-caption{left:1rem;right:1rem;bottom:.35rem;padding:.85rem .5rem .45rem}
+ .viewer-edition{font-size:.49rem!important;margin-bottom:.4rem!important}
+ .viewer-story{font-size:.72rem!important;line-height:1.55!important;max-height:24vh;overflow:auto}
+ .viewer-story-toggle{margin-top:.45rem;font-size:.58rem}
+}
+@media(prefers-reduced-motion:reduce){.viewer-stage img,.viewer-story{animation:none!important}}
+
 </style>
 </head>
 <body>
@@ -1165,7 +1193,7 @@ body.gallery-rail-visible .gallery-rail{opacity:1;pointer-events:auto}
 <div class="morfo-viewer" id="art-viewer" role="dialog" aria-modal="true" aria-label="Visor de obras MORFO" aria-hidden="true" tabindex="-1">
   <div class="viewer-shell">
     <div class="viewer-topline"><span class="viewer-kicker" id="viewer-kicker">MORFO · COLECCIÓN</span><button class="viewer-close" type="button" id="viewer-close" aria-label="Cerrar visor">×</button></div>
-    <div class="viewer-stage" id="viewer-stage"><button class="viewer-nav viewer-prev" type="button" id="viewer-prev" aria-label="Obra anterior">‹</button><img id="viewer-image" alt=""><button class="viewer-nav viewer-next" type="button" id="viewer-next" aria-label="Obra siguiente">›</button><div class="viewer-caption"><strong id="viewer-title"></strong><span id="viewer-meta"></span></div></div>
+    <div class="viewer-stage" id="viewer-stage"><button class="viewer-nav viewer-prev" type="button" id="viewer-prev" aria-label="Obra anterior">‹</button><img id="viewer-image" alt=""><button class="viewer-nav viewer-next" type="button" id="viewer-next" aria-label="Obra siguiente">›</button><div class="viewer-caption"><span class="viewer-edition" id="viewer-edition">MORFO · PRIVATE VIEWING</span><strong id="viewer-title"></strong><span id="viewer-meta"></span><button class="viewer-story-toggle" id="viewer-story-toggle" type="button" aria-expanded="false">Leer la historia <span aria-hidden="true">＋</span></button><p class="viewer-story" id="viewer-story" hidden></p></div></div>
     <div class="viewer-footer"><span class="viewer-counter" id="viewer-counter"></span><span class="viewer-hint" id="viewer-hint"></span></div>
   </div>
 </div>
@@ -1460,6 +1488,12 @@ document.getElementById('bid-demo')?.addEventListener('submit',e=>{
     const item=viewerItems[viewerIndex];if(!item)return;
     viewerImg.classList.remove('is-zoomed');viewerImg.src=encodeURI(item.src);viewerImg.alt=item.w.title;
     viewerTitle.textContent=item.w.title;viewerMeta.textContent=L(item.w.tech)+' · '+L(item.w.year);
+    const storyToggle=document.getElementById('viewer-story-toggle');
+    const storyPanel=document.getElementById('viewer-story');
+    storyPanel.hidden=true;storyPanel.textContent=L(item.w.story||{es:'Una obra para observar sin prisa.',en:'An artwork to experience without haste.'});
+    storyToggle.setAttribute('aria-expanded','false');
+    storyToggle.innerHTML=(lang==='es'?'Leer la historia':'Read the story')+' <span aria-hidden="true">＋</span>';
+    document.getElementById('viewer-edition').textContent=lang==='es'?'MORFO · VISITA PRIVADA':'MORFO · PRIVATE VIEWING';
     viewerCounter.textContent=String(viewerIndex+1).padStart(2,'0')+' / '+String(viewerItems.length).padStart(2,'0');
     viewerPrev.hidden=viewerItems.length<2;viewerNext.hidden=viewerItems.length<2;
     viewerHint.textContent=t('viewer_hint');
@@ -1495,6 +1529,14 @@ document.getElementById('bid-demo')?.addEventListener('submit',e=>{
     if(e.key==='Escape'){e.preventDefault();closeViewer();}
     else if(e.key==='ArrowLeft'){e.preventDefault();stepViewer(-1);}
     else if(e.key==='ArrowRight'){e.preventDefault();stepViewer(1);}
+  });
+  document.getElementById('viewer-story-toggle').addEventListener('click',()=>{
+    const toggle=document.getElementById('viewer-story-toggle');
+    const panel=document.getElementById('viewer-story');
+    const expanded=toggle.getAttribute('aria-expanded')==='true';
+    toggle.setAttribute('aria-expanded',String(!expanded));
+    panel.hidden=expanded;
+    toggle.innerHTML=(lang==='es'?(expanded?'Leer la historia':'Cerrar historia'):(expanded?'Read the story':'Close story'))+' <span aria-hidden="true">'+(expanded?'＋':'−')+'</span>';
   });
   document.getElementById('viewer-close').addEventListener('click',closeViewer);
   viewerPrev.addEventListener('click',()=>stepViewer(-1));
