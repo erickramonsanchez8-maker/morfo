@@ -197,14 +197,15 @@ try {
     if (legacyButton) legacyButton.click();
   });
 
-  document.getElementById('room-left')?.addEventListener('click', () => {
-    controls.rotateLeft(Math.PI / 7);
+  const rotateCamera = delta => {
+    const offset = camera.position.clone().sub(controls.target);
+    const spherical = new THREE.Spherical().setFromVector3(offset);
+    spherical.theta += delta;
+    camera.position.copy(controls.target).add(new THREE.Vector3().setFromSpherical(spherical));
     controls.update();
-  });
-  document.getElementById('room-right')?.addEventListener('click', () => {
-    controls.rotateLeft(-Math.PI / 7);
-    controls.update();
-  });
+  };
+  document.getElementById('room-left')?.addEventListener('click', () => rotateCamera(Math.PI / 7));
+  document.getElementById('room-right')?.addEventListener('click', () => rotateCamera(-Math.PI / 7));
   document.getElementById('room-reset')?.addEventListener('click', () => {
     camera.position.set(0, 3.2, 11.8);
     controls.target.set(0, 2.2, -1.1);
