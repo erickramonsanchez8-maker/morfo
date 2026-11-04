@@ -2038,6 +2038,16 @@ document.getElementById('start-gallery')?.addEventListener('click',()=>{
         camera.position.x=nextX;
         camera.position.z=nextZ;
         camera.position.y=1.64;
+        const detectedRoom=camera.position.z<-7.5?2:1;
+        if(detectedRoom!==currentRoom){
+          currentRoom=detectedRoom;
+          roomOneButton?.setAttribute('aria-pressed',String(currentRoom===1));
+          roomTwoButton?.setAttribute('aria-pressed',String(currentRoom===2));
+          setStatus(
+            currentRoom===1?'Sala I · El testigo · Camina por el vano central para continuar':'Sala II · Dos estudios · Puedes regresar por el vano central',
+            currentRoom===1?'Room I · El testigo · Walk through the central doorway to continue':'Room II · Two studies · Return through the central doorway'
+          );
+        }
         renderer.render(scene,camera);
       }
 
