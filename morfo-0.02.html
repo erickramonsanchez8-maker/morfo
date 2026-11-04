@@ -1059,7 +1059,7 @@ body.gallery-rail-visible .gallery-rail{opacity:1;pointer-events:auto}
 .room-viewport.webgl-ready .room-camera{display:none}
 .room-viewport.webgl-ready .room-hud{display:none}
 .room-three-canvas{position:absolute;inset:0;z-index:1;width:100%;height:100%;display:block;outline:0;cursor:grab;touch-action:none}
-.room-three-canvas:active{cursor:grabbing}
+.room-three-canvas:active{cursor:grabbing}.room-reticle,.room-touch-pad,.room-controls #room-left,.room-controls #room-right{display:none!important}.room-map-panel{position:absolute;z-index:8;right:clamp(1rem,3vw,2.5rem);bottom:3.3rem;width:154px;padding:.65rem;border:1px solid rgba(201,166,92,.35);border-radius:8px;background:rgba(22,18,21,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 12px 40px #0005}.room-map-head{display:flex;justify-content:space-between;gap:.4rem;align-items:center;color:#e8d5a9;font-size:.48rem;letter-spacing:.12em}.room-map-head small{font-size:.4rem;color:#bdb2a9}.room-map{display:block;width:100%;height:auto;margin:.45rem auto}.room-map .map-room{fill:rgba(248,245,239,.07);stroke:rgba(201,166,92,.68);stroke-width:1.5}.room-map .map-door{fill:#211b20;stroke:rgba(201,166,92,.4);stroke-width:1}.room-map text{fill:#d8c7ad;font:8px Arial;letter-spacing:1px}.room-map .map-art{cursor:pointer}.room-map .map-art circle{fill:#c9a65c;stroke:#f8f5ef;stroke-width:1}.room-map .map-art text{font-size:8px}.room-map .map-art:hover circle{fill:#f8f5ef}.room-map-user{fill:#f8f5ef;stroke:#c9a65c;stroke-width:3;filter:drop-shadow(0 0 4px #c9a65c)}.map-heading{stroke:#f8f5ef;stroke-width:2;stroke-linecap:round}.room-map-legend{display:flex;align-items:center;gap:.4rem;color:#d8c7ad;font-size:.43rem;letter-spacing:.12em}.room-map-legend i{width:7px;height:7px;border-radius:50%;background:#f8f5ef;box-shadow:0 0 0 2px #c9a65c}.room-map-panel button{cursor:pointer}@media(max-width:620px){.room-map-panel{width:124px;right:.65rem;bottom:2.8rem;padding:.45rem}.room-map-head{font-size:.4rem}.room-map-head small{font-size:.34rem}.room-map-legend{font-size:.36rem}}
 .room-viewport.webgl-ready .room-vignette{z-index:2;opacity:.42}
 .room-live-hud{position:absolute;z-index:6;top:1rem;left:clamp(1rem,3vw,2.5rem);right:clamp(1rem,3vw,2.5rem);display:flex;justify-content:space-between;align-items:center;gap:1rem;pointer-events:none}
 .room-live-tag,.room-live-status{display:inline-flex;align-items:center;gap:.55rem;padding:.55rem .8rem;border:1px solid rgba(201,166,92,.24);background:rgba(26,21,24,.56);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#e9dfd4;font-size:.55rem;letter-spacing:.16em;text-transform:uppercase}
@@ -1172,6 +1172,7 @@ body.gallery-rail-visible .gallery-rail{opacity:1;pointer-events:auto}
         <span class="room-live-status" id="room-status" role="status" aria-live="polite">Cargando motor 3D…</span>
       </div>
       <div class="room-reticle" aria-hidden="true"><i></i></div>
+      <div class="room-map-panel" id="room-map-panel" aria-label="Mapa interactivo del museo"><div class="room-map-head"><span data-room-es="PLANO DEL MUSEO" data-room-en="MUSEUM MAP">PLANO DEL MUSEO</span><small data-room-es="HAZ CLIC PARA IR" data-room-en="CLICK TO GO">HAZ CLIC PARA IR</small></div><svg class="room-map" id="room-map" viewBox="0 0 220 310" role="group" aria-label="Plano de las dos salas"><rect class="map-room" x="22" y="14" width="176" height="122" rx="5"/><rect class="map-room" x="22" y="174" width="176" height="122" rx="5"/><rect class="map-door" x="92" y="132" width="36" height="42"/><text x="110" y="35" text-anchor="middle">SALA I</text><text x="110" y="195" text-anchor="middle">SALA II</text><g class="map-art" data-map-x="-5.8" data-map-z="-1"><circle cx="42" cy="76" r="8"/><text x="58" y="80">01</text></g><g class="map-art" data-map-x="-5.8" data-map-z="-15"><circle cx="42" cy="236" r="8"/><text x="58" y="240">02</text></g><g class="map-art" data-map-x="5.8" data-map-z="-15"><circle cx="178" cy="236" r="8"/><text x="162" y="240" text-anchor="end">03</text></g><circle id="room-map-user" class="map-user" cx="110" cy="102" r="7"/><path id="room-map-heading" class="map-heading" d="M110 102 L110 82"/></svg><div class="room-map-legend"><i></i><span data-room-es="TU UBICACIÓN" data-room-en="YOUR LOCATION">TU UBICACIÓN</span></div></div>
       <div class="room-touch-pad" id="room-touch-pad" aria-label="Controles táctiles de movimiento">
         <button type="button" data-walk="forward" aria-label="Avanzar">↑</button>
         <button type="button" data-walk="left" aria-label="Moverse a la izquierda">←</button>
@@ -1780,8 +1781,9 @@ document.getElementById('start-gallery')?.addEventListener('click',()=>{
 
       // Museo de dos salas reales, unidas por un vano transitable.
       const roomCenters=[0,-15];
+      const walkableMeshes=[];
       roomCenters.forEach(centerZ=>{
-        box(15,.24,15,0,-.12,centerZ,floorMat);
+        walkableMeshes.push(box(15,.24,15,0,-.12,centerZ,floorMat));
         box(15,.2,15,0,4.62,centerZ,ceilingMat);
         box(.26,4.6,15,-7.38,2.3,centerZ,sideMat);
         box(.26,4.6,15,7.38,2.3,centerZ,sideMat);
@@ -1921,6 +1923,28 @@ document.getElementById('start-gallery')?.addEventListener('click',()=>{
 
       const raycaster=new THREE.Raycaster();
       const pointer=new THREE.Vector2();
+      const mapUser=document.getElementById("room-map-user");
+      const mapHeading=document.getElementById("room-map-heading");
+      let moveTarget=null;
+      const moveSpeed=5.2;
+      function moveTo(x,z){
+        const safeX=THREE.MathUtils.clamp(x,-6.2,6.2);
+        const safeZ=THREE.MathUtils.clamp(z,-21.1,6.2);
+        moveTarget=new THREE.Vector3(safeX,1.64,safeZ);
+        const dx=safeX-camera.position.x,dz=safeZ-camera.position.z;
+        if(Math.hypot(dx,dz)>.45){yaw=Math.atan2(-dx,-dz);updateCamera();}
+        setStatus("Desplazándote al punto seleccionado…","Moving to selected location…");
+      }
+      function updateMap(){
+        if(!mapUser)return;
+        const x=110+(camera.position.x/15)*176;
+        const y=75+((-camera.position.z)/30)*230;
+        mapUser.setAttribute("cx",String(THREE.MathUtils.clamp(x,28,192)));
+        mapUser.setAttribute("cy",String(THREE.MathUtils.clamp(y,20,290)));
+        const hx=Math.sin(yaw)*11,hy=-Math.cos(yaw)*11;
+        mapHeading?.setAttribute("d",`M${THREE.MathUtils.clamp(x,28,192)} ${THREE.MathUtils.clamp(y,20,290)} l${hx} ${hy}`);
+      }
+      document.querySelectorAll(".room-map [data-map-x]").forEach(point=>point.addEventListener("click",()=>moveTo(Number(point.dataset.mapX),Number(point.dataset.mapZ))));
       function hitArtwork(clientX,clientY){
         const r=renderer.domElement.getBoundingClientRect();
         pointer.x=((clientX-r.left)/r.width)*2-1;
@@ -1957,7 +1981,16 @@ document.getElementById('start-gallery')?.addEventListener('click',()=>{
       renderer.domElement.addEventListener('pointerup',e=>{
         if(!dragging)return;
         dragging=false;
-        if(!lookChanged){const hit=hitArtwork(e.clientX,e.clientY);if(hit)openArtwork(hit);}
+        if(!lookChanged){
+          const hit=hitArtwork(e.clientX,e.clientY);
+          if(hit){openArtwork(hit);return;}
+          const r=renderer.domElement.getBoundingClientRect();
+          pointer.x=((e.clientX-r.left)/r.width)*2-1;
+          pointer.y=-((e.clientY-r.top)/r.height)*2+1;
+          raycaster.setFromCamera(pointer,camera);
+          const floorHit=raycaster.intersectObjects(walkableMeshes,false)[0];
+          if(floorHit)moveTo(floorHit.point.x,floorHit.point.z);
+        }
       });
       renderer.domElement.addEventListener('pointercancel',()=>{dragging=false;});
       renderer.domElement.addEventListener('lostpointercapture',()=>{dragging=false;});
@@ -1990,8 +2023,9 @@ document.getElementById('start-gallery')?.addEventListener('click',()=>{
       const roomTwoButton=document.getElementById('room-room-two');
       const setRoom=(number)=>{
         currentRoom=number;
+        moveTarget=null;
         camera.position.set(0,1.64,number===1?5.65:-9.5);
-        yaw=0;pitch=-.015;velocity.set(0,0,0);updateCamera();
+        yaw=0;pitch=-.015;velocity.set(0,0,0);updateCamera();updateMap();
         roomOneButton?.setAttribute('aria-pressed',String(number===1));
         roomTwoButton?.setAttribute('aria-pressed',String(number===2));
         setStatus(number===1?'Sala I · El testigo · Camina por el vano central para continuar':'Sala II · Dos estudios · Puedes regresar por el vano central',number===1?'Room I · El testigo · Walk through the central doorway to continue':'Room II · Two studies · Return through the central doorway');
@@ -2038,6 +2072,12 @@ document.getElementById('start-gallery')?.addEventListener('click',()=>{
         camera.position.x=nextX;
         camera.position.z=nextZ;
         camera.position.y=1.64;
+        if(moveTarget){
+          const delta=moveTarget.clone().sub(camera.position);delta.y=0;
+          if(delta.length()<.16){camera.position.x=moveTarget.x;camera.position.z=moveTarget.z;moveTarget=null;}
+          else{const step=Math.min(delta.length(),moveSpeed*dt);camera.position.addScaledVector(delta.normalize(),step);}
+        }
+        updateMap();
         const detectedRoom=camera.position.z<-7.5?2:1;
         if(detectedRoom!==currentRoom){
           currentRoom=detectedRoom;
@@ -2054,12 +2094,12 @@ document.getElementById('start-gallery')?.addEventListener('click',()=>{
       viewport.classList.add('webgl-ready');
       renderer.setAnimationLoop(render);
       setStatus(
-        'Arrastra para mirar · WASD o flechas para caminar · pulsa una obra',
-        'Drag to look · WASD or arrows to walk · click an artwork'
+        'Haz clic en el suelo o en el plano para desplazarte · arrastra para mirar',
+        'Click the floor or map to move · drag to look around'
       );
       const languageObserver=new MutationObserver(()=>setStatus(
-        'Arrastra para mirar · WASD o flechas para caminar · pulsa una obra',
-        'Drag to look · WASD or arrows to walk · click an artwork'
+        'Haz clic en el suelo o en el plano para desplazarte · arrastra para mirar',
+        'Click the floor or map to move · drag to look around'
       ));
       languageObserver.observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
     }catch(error){
