@@ -1033,7 +1033,7 @@ body.gallery-rail-visible .gallery-rail{opacity:1;pointer-events:auto}
 .room-kicker{display:flex;gap:.7rem;align-items:center;align-self:start;font-size:.58rem;letter-spacing:.2em;color:#C9A65C;white-space:nowrap}.room-kicker i{display:block;width:32px;height:1px;background:#C9A65C}
 .room-heading h2{font-size:clamp(2.4rem,5vw,5.4rem);line-height:.98;letter-spacing:-.055em;font-weight:400;margin:0;max-width:13ch}.room-heading h2 em{font-family:Georgia,serif;font-weight:400;color:#C9A65C}
 .room-intro{max-width:42ch;color:rgba(248,245,239,.66);font-size:.9rem;line-height:1.8;margin:1.2rem 0 0}
-.room-controls{display:flex;gap:.45rem;align-items:center;padding-bottom:.3rem}.room-controls button{border:1px solid rgba(201,166,92,.38);background:rgba(52,48,51,.65);color:#F8F5EF;min-width:42px;height:42px;cursor:pointer;transition:background .25s,border-color .25s,color .25s}.room-controls button:hover{background:#C9A65C;color:#211d20;border-color:#C9A65C}.room-controls #room-reset{padding:0 .85rem;font-size:.55rem;letter-spacing:.12em}
+.room-controls{display:flex;gap:.45rem;align-items:center;padding-bottom:.3rem}.room-controls button{border:1px solid rgba(201,166,92,.38);background:rgba(52,48,51,.65);color:#F8F5EF;min-width:42px;height:42px;cursor:pointer;transition:background .25s,border-color .25s,color .25s}.room-controls button:hover{background:#C9A65C;color:#211d20;border-color:#C9A65C}.room-controls #room-reset{padding:0 .85rem;font-size:.55rem;letter-spacing:.12em}.room-controls button.room-room-select{min-width:auto;padding:0 .8rem;font-size:.55rem;letter-spacing:.1em}.room-controls button.room-room-select[aria-pressed="true"]{background:#C9A65C;color:#211d20;border-color:#C9A65C}
 .room-viewport{height:clamp(390px,53vw,650px);position:relative;overflow:hidden;perspective:1000px;perspective-origin:50% 42%;background:radial-gradient(ellipse at 50% 42%,#504147 0,#282226 50%,#171518 100%);border-top:1px solid rgba(201,166,92,.28);border-bottom:1px solid rgba(201,166,92,.2);touch-action:pan-y;cursor:grab;user-select:none}.room-viewport.is-dragging{cursor:grabbing}
 .room-vignette{position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(90deg,rgba(15,13,15,.62),transparent 18%,transparent 82%,rgba(15,13,15,.62)),linear-gradient(0deg,rgba(15,13,15,.62),transparent 22%,transparent 80%,rgba(15,13,15,.22))}
 .room-camera{position:absolute;inset:0;display:grid;place-items:center;transform-style:preserve-3d}.room-world{position:relative;width:min(72vw,900px);height:360px;transform-style:preserve-3d;transform:translateY(25px) rotateX(0deg) rotateY(var(--room-turn,-9deg));transition:transform .75s cubic-bezier(.2,.7,.2,1);will-change:transform}
@@ -1162,8 +1162,8 @@ body.gallery-rail-visible .gallery-rail{opacity:1;pointer-events:auto}
   <section class="morfo-room-section" id="morfo-room" aria-labelledby="room-title">
     <div class="wrap room-heading">
       <p class="room-kicker"><span>02</span><i></i><span data-room-es="ESPACIO INMERSIVO" data-room-en="IMMERSIVE SPACE">ESPACIO INMERSIVO</span></p>
-      <div><h2 id="room-title">No estás frente a una pantalla.<br><em>Estás dentro de MORFO.</em></h2><p class="room-intro" data-room-es="Explora la sala. Mira hacia los lados. Acércate a las obras. Cada muro guarda una presencia." data-room-en="Explore the room. Look around. Approach the works. Every wall holds a presence.">Explora la sala. Mira hacia los lados. Acércate a las obras. Cada muro guarda una presencia.</p></div>
-      <div class="room-controls" aria-label="Controles de la galería 3D"><button type="button" id="room-left" aria-label="Girar a la izquierda">↶</button><button type="button" id="room-reset" data-room-es="CENTRAR VISTA" data-room-en="CENTER VIEW">CENTRAR VISTA</button><button type="button" id="room-right" aria-label="Girar a la derecha">↷</button><button type="button" id="room-fullscreen" aria-label="Pantalla completa">⛶</button></div>
+      <div><h2 id="room-title">No estás frente a una pantalla.<br><em>Estás dentro de MORFO.</em></h2><p class="room-intro" data-room-es="Dos salas conectadas, arquitectura mineral y obras en escala real. Camina entre espacios, descubre cada muro y acércate a las piezas." data-room-en="Two connected rooms, mineral architecture and life-size artworks. Walk between spaces, discover each wall and approach the pieces.">Dos salas conectadas, arquitectura mineral y obras en escala real. Camina entre espacios, descubre cada muro y acércate a las piezas.</p></div>
+      <div class="room-controls" aria-label="Controles de la galería 3D"><button class="room-room-select" type="button" id="room-room-one" aria-pressed="true" data-room-es="SALA I" data-room-en="ROOM I">SALA I</button><button class="room-room-select" type="button" id="room-room-two" aria-pressed="false" data-room-es="SALA II" data-room-en="ROOM II">SALA II</button><button type="button" id="room-left" aria-label="Girar a la izquierda">↶</button><button type="button" id="room-reset" data-room-es="CENTRAR VISTA" data-room-en="CENTER VIEW">CENTRAR VISTA</button><button type="button" id="room-right" aria-label="Girar a la derecha">↷</button><button type="button" id="room-fullscreen" aria-label="Pantalla completa">⛶</button></div>
     </div>
     <div class="room-viewport" id="room-viewport" tabindex="0" role="application" aria-label="Galería tridimensional interactiva. Arrastra para mirar alrededor y utiliza WASD o las flechas para caminar.">
       <div class="room-vignette"></div>
@@ -1188,7 +1188,7 @@ body.gallery-rail-visible .gallery-rail{opacity:1;pointer-events:auto}
       </div></div>
       <div class="room-hud"><span><i></i> <span data-room-es="SALA EXPLORABLE" data-room-en="EXPLORE THE ROOM">SALA EXPLORABLE</span></span><span data-room-es="ARRASTRA PARA MIRAR ALREDEDOR" data-room-en="DRAG TO LOOK AROUND">ARRASTRA PARA MIRAR ALREDEDOR</span></div>
     </div>
-    <p class="room-footnote" data-room-es="Una primera sala experimental · Las obras de ejemplo están identificadas como tales." data-room-en="A first experimental room · Sample artworks are identified as such.">Una primera sala experimental · Las obras de ejemplo están identificadas como tales.</p>
+    <p class="room-footnote" data-room-es="Museo virtual de dos salas conectadas · Las obras ficticias están identificadas como demostración; solo «El testigo» utiliza la fotografía original disponible." data-room-en="Two-room connected virtual museum · Fictional works are marked as samples; only “El testigo” uses the available original photograph.">Museo virtual de dos salas conectadas · Las obras ficticias están identificadas como demostración; solo «El testigo» utiliza la fotografía original disponible.</p>
   </section>
 
   <section id="destacada">
@@ -1778,26 +1778,35 @@ document.getElementById('start-gallery')?.addEventListener('click',()=>{
         mesh.position.set(x,y,z);(group||sceneGroup).add(mesh);return mesh;
       }
 
-      // Volumen arquitectónico: suelo, tres muros, techo y zócalos.
-      box(15,.24,15,0,-.12,0,floorMat);
-      box(15,4.6,.26,0,2.3,-7.38,wallMat);
-      box(.26,4.6,15,-7.38,2.3,0,sideMat);
-      box(.26,4.6,15,7.38,2.3,0,sideMat);
-      box(15,.2,15,0,4.62,0,ceilingMat);
-      box(14.72,.12,.055,0,.13,-7.22,goldMat);
-      box(.055,.12,14.5,-7.22,.13,0,goldMat);
-      box(.055,.12,14.5,7.22,.13,0,goldMat);
-      box(14.72,.035,.045,0,4.42,-7.20,darkMetal);
-      box(.045,.035,14.4,-7.20,4.42,0,darkMetal);
-      box(.045,.035,14.4,7.20,4.42,0,darkMetal);
-
-      // Molduras arquitectónicas finas para dar escala a los muros.
+      // Museo de dos salas reales, unidas por un vano transitable.
+      const roomCenters=[0,-15];
+      roomCenters.forEach(centerZ=>{
+        box(15,.24,15,0,-.12,centerZ,floorMat);
+        box(15,.2,15,0,4.62,centerZ,ceilingMat);
+        box(.26,4.6,15,-7.38,2.3,centerZ,sideMat);
+        box(.26,4.6,15,7.38,2.3,centerZ,sideMat);
+        box(.055,.12,14.5,-7.22,.13,centerZ,goldMat);
+        box(.055,.12,14.5,7.22,.13,centerZ,goldMat);
+        box(.045,.035,14.4,-7.20,4.42,centerZ,darkMetal);
+        box(.045,.035,14.4,7.20,4.42,centerZ,darkMetal);
+        for(let offset=-5;offset<=5;offset+=2){
+          box(.018,3.75,.018,-7.235,2.3,centerZ+offset,darkMetal);
+          box(.018,3.75,.018,7.235,2.3,centerZ+offset,darkMetal);
+        }
+      });
+      // El vano central de la primera sala permite caminar a la segunda.
+      box(5.95,4.6,.26,-4.525,2.3,-7.38,wallMat);
+      box(5.95,4.6,.26,4.525,2.3,-7.38,wallMat);
+      box(3.1,1.2,.26,0,4.0,-7.38,wallMat);
+      box(.055,.12,.055,-1.58,.13,-7.22,goldMat);
+      box(.055,.12,.055,1.58,.13,-7.22,goldMat);
+      box(3.22,.045,.055,0,3.42,-7.22,goldMat);
+      // Muro de cierre de la segunda sala y remates arquitectónicos.
+      box(15,4.6,.26,0,2.3,-22.38,wallMat);
+      box(14.72,.12,.055,0,.13,-22.22,goldMat);
+      box(14.72,.035,.045,0,4.42,-22.20,darkMetal);
       for(let x=-6;x<=6;x+=2){
-        box(.018,3.75,.018,x,2.3,-7.235,goldMat);
-      }
-      for(let z=-5;z<=5;z+=2){
-        box(.018,3.75,.018,-7.235,2.3,z,darkMetal);
-        box(.018,3.75,.018,7.235,2.3,z,darkMetal);
+        box(.018,3.75,.018,x,2.3,-22.235,goldMat);
       }
 
       scene.add(new THREE.HemisphereLight(0xe8d9c8,0x21171e,1.15));
@@ -1814,6 +1823,9 @@ document.getElementById('start-gallery')?.addEventListener('click',()=>{
       addSpot(0,4.25,-4.2,0,2.1,-7.1,32);
       addSpot(-4.2,4.2,-1.4,-7.1,2.1,-1.4,24);
       addSpot(4.2,4.2,-1.4,7.1,2.1,-1.4,24);
+      addSpot(-4.2,4.2,-16.4,-7.1,2.1,-16.4,24);
+      addSpot(4.2,4.2,-16.4,7.1,2.1,-16.4,24);
+      addSpot(0,4.2,-19.1,0,2.1,-22.1,30);
 
       // Una línea de luz y un círculo mineral en el suelo orientan la entrada.
       const ring=new THREE.Mesh(
@@ -1821,6 +1833,7 @@ document.getElementById('start-gallery')?.addEventListener('click',()=>{
         new THREE.MeshBasicMaterial({color:0xc9a65c,transparent:true,opacity:.22,side:THREE.DoubleSide})
       );
       ring.rotation.x=-Math.PI/2;ring.position.set(0,.012,1.7);sceneGroup.add(ring);
+      const secondRing=ring.clone();secondRing.position.set(0,.012,-13.3);sceneGroup.add(secondRing);
       const entryLine=new THREE.Mesh(
         new THREE.PlaneGeometry(5.2,.025),
         new THREE.MeshBasicMaterial({color:0xc9a65c,transparent:true,opacity:.25})
@@ -1883,10 +1896,10 @@ document.getElementById('start-gallery')?.addEventListener('click',()=>{
         });
       }
 
-      // Se utilizan solamente las tres obras ya declaradas en la versión anterior.
-      artwork({slug:'ejemplo',title:'El testigo',src:'1ra pintura.jpg',side:'back',x:0,z:-7.20,index:'01'});
-      artwork({slug:'la-habitacion-interior',title:'La habitación interior',src:'assets/obras/la-habitacion-interior-demo.svg',side:'left',x:-7.20,z:-1.1,index:'02'});
-      artwork({slug:'el-peso-del-silencio',title:'El peso del silencio',src:'assets/obras/el-peso-del-silencio-demo.svg',side:'right',x:7.20,z:-1.1,index:'03'});
+      // Sala I: la obra original disponible. Sala II: estudios ficticios, señalados en sus fichas.
+      artwork({slug:'ejemplo',title:'El testigo',src:'1ra pintura.jpg',side:'left',x:-7.20,z:-1.1,index:'01'});
+      artwork({slug:'la-habitacion-interior',title:'La habitación interior',src:'assets/obras/la-habitacion-interior-demo.svg',side:'left',x:-7.20,z:-15.0,index:'02'});
+      artwork({slug:'el-peso-del-silencio',title:'El peso del silencio',src:'assets/obras/el-peso-del-silencio-demo.svg',side:'right',x:7.20,z:-15.0,index:'03'});
 
       let yaw=0,pitch=-.015;
       const initialPosition=new THREE.Vector3(0,1.64,5.65);
@@ -1972,10 +1985,23 @@ document.getElementById('start-gallery')?.addEventListener('click',()=>{
         button.addEventListener('contextmenu',e=>e.preventDefault());
       });
 
+      let currentRoom=1;
+      const roomOneButton=document.getElementById('room-room-one');
+      const roomTwoButton=document.getElementById('room-room-two');
+      const setRoom=(number)=>{
+        currentRoom=number;
+        camera.position.set(0,1.64,number===1?5.65:-9.5);
+        yaw=0;pitch=-.015;velocity.set(0,0,0);updateCamera();
+        roomOneButton?.setAttribute('aria-pressed',String(number===1));
+        roomTwoButton?.setAttribute('aria-pressed',String(number===2));
+        setStatus(number===1?'Sala I · El testigo · Camina por el vano central para continuar':'Sala II · Dos estudios · Puedes regresar por el vano central',number===1?'Room I · El testigo · Walk through the central doorway to continue':'Room II · Two studies · Return through the central doorway');
+      };
+      roomOneButton?.addEventListener('click',()=>setRoom(1));
+      roomTwoButton?.addEventListener('click',()=>setRoom(2));
       document.getElementById('room-left')?.addEventListener('click',()=>{yaw+=.34;updateCamera();});
       document.getElementById('room-right')?.addEventListener('click',()=>{yaw-=.34;updateCamera();});
       document.getElementById('room-reset')?.addEventListener('click',()=>{
-        yaw=0;pitch=-.015;camera.position.copy(initialPosition);velocity.set(0,0,0);updateCamera();
+        setRoom(currentRoom);
       });
       document.getElementById('room-fullscreen')?.addEventListener('click',()=>{
         if(document.fullscreenElement){document.exitFullscreen?.();}
@@ -2004,8 +2030,13 @@ document.getElementById('start-gallery')?.addEventListener('click',()=>{
         if(pressed.has('left'))desired.sub(right);
         if(desired.lengthSq()>0)desired.normalize().multiplyScalar(pressed.has('fast')?5.1:3.35);
         velocity.lerp(desired,1-Math.exp(-8*dt));
-        camera.position.x=THREE.MathUtils.clamp(camera.position.x+velocity.x*dt,-6.55,6.55);
-        camera.position.z=THREE.MathUtils.clamp(camera.position.z+velocity.z*dt,-6.55,6.75);
+        const nextX=THREE.MathUtils.clamp(camera.position.x+velocity.x*dt,-6.55,6.55);
+        let nextZ=THREE.MathUtils.clamp(camera.position.z+velocity.z*dt,-21.35,6.75);
+        // El vano mide 3.1 m: el visitante solo cruza el muro si está centrado.
+        const crossingPortal=(camera.position.z>-7.5&&nextZ<=-7.5)||(camera.position.z<-7.25&&nextZ>=-7.25);
+        if(crossingPortal&&Math.abs(nextX)>1.42)nextZ=camera.position.z>-7.5?-7.25:-7.5;
+        camera.position.x=nextX;
+        camera.position.z=nextZ;
         camera.position.y=1.64;
         renderer.render(scene,camera);
       }
