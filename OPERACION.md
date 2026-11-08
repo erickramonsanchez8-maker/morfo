@@ -1,27 +1,39 @@
-# MORFO — puesta en operación
+# MORFO — operación y puesta en producción
 
-## Sitio actualizado
-- La pintura original El testigo ocupa el primer plano de la portada.
-- Solo se usa la obra auténtica identificada en el repositorio. Se excluyen las dos ilustraciones SVG ficticias y las cifras de subasta de demostración.
-- Funcionan búsqueda y filtro del catálogo, visor ampliado, navegación móvil, selector ES/EN y formulario de consulta preparado para WhatsApp.
-- El número oficial de WhatsApp todavía no está configurado; el visitante selecciona el contacto al enviar. No se inventó un destinatario.
-- Al conectar Supabase, el formulario puede guardar consultas en public.inquiries.
+## Lo que ya está implementado en el repositorio
+- Portada centrada en la pintura: la obra destacada llena la primera pantalla; el logotipo no compite con ella.
+- Catálogo dinámico: lee obras publicadas desde Supabase cuando se conecta; mantiene la única obra auténtica del repositorio como respaldo mientras tanto.
+- Búsqueda y filtros por estado, visor ampliado, navegación móvil y español/inglés.
+- Consultas: se guardan en Supabase cuando el backend está configurado; sin backend, se prepara un mensaje para WhatsApp.
+- Panel privado en admin.html: login por enlace de correo, inventario, publicación de obras, bandeja de consultas, programación/apertura/cierre de subastas y verificación de identidad/depósito.
+- Subastas: registro por correo OTP, ofertas autenticadas con validación atómica, incremento mínimo y extensión anti-sniping. El historial público no revela la identidad del pujador.
+- Se retiraron las obras ficticias de demostración y las cantidades inventadas.
 
-## Activar el backend
-1. Crear proyecto Supabase (plan Free).
-2. Ejecutar el archivo supabase/schema.sql en SQL Editor.
+## Activación obligatoria del backend
+El código ya está preparado, pero no puede guardar datos ni autenticar participantes hasta que exista un proyecto Supabase propio y se añadan sus credenciales públicas.
+
+1. Crear un proyecto Supabase en el plan Free.
+2. Ejecutar una sola vez el archivo supabase/schema.sql en SQL Editor.
 3. Habilitar Email OTP / magic link en Authentication.
-4. Crear usuario administrativo y añadir su UUID a public.admin_users.
-5. En index.html, completar MORFO_CONFIG.supabaseUrl y MORFO_CONFIG.supabaseAnonKey. Nunca publicar service_role.
-6. Completar y aprobar la ficha de la obra en public.artworks; marcar published=true cuando la artista valide sus datos.
-7. Configurar el teléfono público de MORFO en MORFO_CONFIG.whatsapp (código país y dígitos, sin +).
+4. Crear el usuario administrador desde Authentication; copiar su UUID.
+5. En SQL Editor ejecutar: insert into public.admin_users(user_id) values('UUID_DEL_ADMIN');
+6. Completar morfo-config.js con Project URL y anon/public key. No poner la service_role key en ningún archivo público.
+7. Entrar a admin.html, iniciar sesión y aprobar la ficha de El testigo. La obra inicial está creada con published=false deliberadamente; publicarla cuando la artista valide su ficha.
+8. Para nuevas obras, subir la fotografía original a un hosting público seguro y guardar su URL en el inventario.
+9. Configurar en morfo-config.js el número oficial de WhatsApp de MORFO, con código de país y solo dígitos.
 
-## Subastas
-- No publicar una subasta sin obra real, precio de reserva, incremento, fechas y reglas aprobadas.
-- Crear la fila en public.auctions con status scheduled y cambiar a live al abrir.
-- La función place_bid bloquea la fila, valida plazo y oferta mínima, aplica extensión anti-sniping y exige identity_verified y deposit_verified.
-- El historial expone importes y fechas, no nombres de participantes.
-- La adjudicación, cobro, pago de ganador y envío todavía requieren integrar un proveedor de pagos y procesos de operación.
+## Operación de subastas
+- No crear una subasta sin obra real, precio de reserva, incremento, fechas y reglas aprobadas.
+- Programarla desde admin.html. Abrirla desde el panel al momento de inicio.
+- Los participantes entran por correo OTP. La función place_bid exige identity_verified=true y deposit_verified=true, valida el cierre y el importe mínimo, bloquea la fila para evitar pujas simultáneas inconsistentes y aplica extensión anti-sniping.
+- El panel permite cerrar la subasta después de su hora de cierre y registra al mejor postor si alcanzó la reserva.
+- Antes de marcar una obra como vendida hay que confirmar el pago real.
 
-## Pendiente antes de cobrar
-MORFO no ha elegido procesador de pagos ni creado cuenta comercial. También falta configurar el número público de WhatsApp, verificar ficha técnica/precio/estado de cada obra y aprobar políticas legales, certificados, embalaje, envío asegurado y devoluciones. No se simulan compras ni pujas.
+## Pendientes externos que no se pueden inventar
+- Supabase URL y anon key: falta crear el proyecto.
+- WhatsApp público: no se proporcionó un número oficial.
+- Cobro: MORFO todavía no eligió un procesador ni cuenta comercial. No hay checkout ni cobro automatizado conectado.
+- Verificar con la artista título, año, técnica, soporte, medidas, estado, precio y disponibilidad de cada obra.
+- Aprobar términos de compra/subasta, privacidad, certificados, embalaje, envío asegurado, devoluciones y obligaciones fiscales.
+
+La web y el panel están versionados en GitHub. Para que sean accesibles al público, hay que publicarlos en el hosting elegido (Hostinger u otro) y configurar dominio/HTTPS.
