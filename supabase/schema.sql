@@ -132,3 +132,58 @@ end; $$;
 drop trigger if exists validate_morfo_auction_artwork on public.auctions;
 create trigger validate_morfo_auction_artwork before insert or update of artwork_id on public.auctions
 for each row execute procedure public.validate_morfo_auction_artwork();
+
+alter table public.auctions add column if not exists payment_status text not null default 'not_due'
+ check(payment_status in ('not_due','pending','paid','expired'));
+alter table public.auctions add column if not exists payment_deadline_at timestamptz;
+
+create or replace function public.close_auction(p_auction_id uuid)
+returns uuid language plpgsql security definer set search_path=public
+as $$
+declare a public.auctions%rowtype;v_winner uuid;v_highest numeric;
+begin
+ if not public.is_morfo_admin() then raise exception 'ADMIN_REQUIRED'; end if;
+ select * into a from public.auctions where id=p_auction_id for update;
+ if not found or a.status<>'live' then raise exception 'AUCTION_NOT_LIVE'; end if;
+ if now()<a.ends_at then raise exception 'AUCTION_NOT_FINISHED'; end if;
+ select bidder_id,amount_mxn into v_winner,v_highest from public.auction_bids where auction_id=a.id order by amount_mxn desc,created_at asc limit 1;
+ if v_highest is null or v_highest<a.reserve_price_mxn then v_winner:=null; end if;
+ update public.auctions set status='ended',winner_user_id=v_winner,
+  payment_status=case when v_winner is null then 'not_due' else 'pending' end,
+  payment_deadline_at=case when v_winner is null then null else now()+interval '72 hours' end
+ where id=a.id;
+ update public.artworks set status='available',updated_at=now() where id=a.artwork_id;
+ return v_winner;
+end; $$;
+
+create or replace function public.confirm_auction_payment(p_auction_id uuid)
+returns boolean language plpgsql security definer set search_path=public
+as $$
+declare a public.auctions%rowtype;
+begin
+ if not public.is_morfo_admin() then raise exception 'ADMIN_REQUIRED'; end if;
+ select * into a from public.auctions where id=p_auction_id for update;
+ if not found or a.status<>'ended' or a.payment_status<>'pending' then raise exception 'PAYMENT_NOT_PENDING'; end if;
+ if a.payment_deadline_at<now() then raise exception 'PAYMENT_WINDOW_EXPIRED'; end if;
+ update public.auctions set payment_status='paid' where id=a.id;
+ update public.artworks set status='sold',updated_at=now() where id=a.artwork_id;
+ return true;
+end; $$;
+
+create or replace function public.expire_auction_payment(p_auction_id uuid)
+returns boolean language plpgsql security definer set search_path=public
+as $$
+declare a public.auctions%rowtype;
+begin
+ if not public.is_morfo_admin() then raise exception 'ADMIN_REQUIRED'; end if;
+ select * into a from public.auctions where id=p_auction_id for update;
+ if not found or a.status<>'ended' or a.payment_status<>'pending' then raise exception 'PAYMENT_NOT_PENDING'; end if;
+ if a.payment_deadline_at>=now() then raise exception 'PAYMENT_WINDOW_NOT_EXPIRED'; end if;
+ update public.auctions set payment_status='expired' where id=a.id;
+ update public.artworks set status='available',updated_at=now() where id=a.artwork_id;
+ return true;
+end; $$;
+revoke all on function public.confirm_auction_payment(uuid) from public;
+revoke all on function public.expire_auction_payment(uuid) from public;
+grant execute on function public.confirm_auction_payment(uuid) to authenticated;
+grant execute on function public.expire_auction_payment(uuid) to authenticated;
