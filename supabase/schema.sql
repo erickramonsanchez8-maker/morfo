@@ -95,3 +95,25 @@ begin
 end; $$;
 revoke all on function public.close_auction(uuid) from public;
 grant execute on function public.close_auction(uuid) to authenticated;
+
+-- One active or scheduled auction per artwork.
+create unique index if not exists one_open_auction_per_artwork
+on public.auctions(artwork_id) where status in ('scheduled','live');
+
+-- Public artwork image bucket; writes are restricted to MORFO admins.
+insert into storage.buckets(id,name,public)
+values('morfo-artworks','morfo-artworks',true)
+on conflict(id) do update set public=true;
+drop policy if exists "public can view morfo artwork images" on storage.objects;
+create policy "public can view morfo artwork images" on storage.objects for select
+using(bucket_id='morfo-artworks');
+drop policy if exists "morfo admins upload artwork images" on storage.objects;
+create policy "morfo admins upload artwork images" on storage.objects for insert
+with check(bucket_id='morfo-artworks' and public.is_morfo_admin());
+drop policy if exists "morfo admins update artwork images" on storage.objects;
+create policy "morfo admins update artwork images" on storage.objects for update
+using(bucket_id='morfo-artworks' and public.is_morfo_admin())
+with check(bucket_id='morfo-artworks' and public.is_morfo_admin());
+drop policy if exists "morfo admins delete artwork images" on storage.objects;
+create policy "morfo admins delete artwork images" on storage.objects for delete
+using(bucket_id='morfo-artworks' and public.is_morfo_admin());
