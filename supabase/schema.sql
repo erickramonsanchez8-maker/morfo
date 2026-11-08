@@ -90,6 +90,7 @@ begin
  select bidder_id,amount_mxn into v_winner,v_highest from public.auction_bids where auction_id=a.id order by amount_mxn desc,created_at asc limit 1;
  if v_highest is null or v_highest<a.reserve_price_mxn then v_winner:=null; end if;
  update public.auctions set status='ended',winner_user_id=v_winner where id=a.id;
+ update public.artworks set status='available',updated_at=now() where id=a.artwork_id;
  return v_winner;
 end; $$;
 revoke all on function public.close_auction(uuid) from public;
