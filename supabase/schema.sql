@@ -71,3 +71,26 @@ using(bidder_id=auth.uid() or public.is_morfo_admin());
 create or replace view public.auction_bid_history with (security_invoker=true) as
 select auction_id,amount_mxn,created_at from public.auction_bids;
 grant select on public.auction_bid_history to anon,authenticated;
+
+
+-- Public read-only bid history omits bidder identity.
+create or replace view public.auction_bid_history as
+select auction_id,amount_mxn,created_at from public.auction_bids;
+grant select on public.auction_bid_history to anon,authenticated;
+
+create or replace function public.close_auction(p_auction_id uuid)
+returns uuid language plpgsql security definer set search_path=public
+as $$
+declare a public.auctions%rowtype;v_winner uuid;v_highest numeric;
+begin
+ if not public.is_morfo_admin() then raise exception 'ADMIN_REQUIRED'; end if;
+ select * into a from public.auctions where id=p_auction_id for update;
+ if not found or a.status<>'live' then raise exception 'AUCTION_NOT_LIVE'; end if;
+ if now()<a.ends_at then raise exception 'AUCTION_NOT_FINISHED'; end if;
+ select bidder_id,amount_mxn into v_winner,v_highest from public.auction_bids where auction_id=a.id order by amount_mxn desc,created_at asc limit 1;
+ if v_highest is null or v_highest<a.reserve_price_mxn then v_winner:=null; end if;
+ update public.auctions set status='ended',winner_user_id=v_winner where id=a.id;
+ return v_winner;
+end; $$;
+revoke all on function public.close_auction(uuid) from public;
+grant execute on function public.close_auction(uuid) to authenticated;
