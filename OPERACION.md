@@ -5,7 +5,7 @@
 - Catálogo dinámico: lee obras publicadas desde Supabase cuando se conecta; mantiene la única obra auténtica del repositorio como respaldo mientras tanto.
 - Búsqueda y filtros por estado, visor ampliado, navegación móvil y español/inglés.
 - Consultas: se guardan en Supabase cuando el backend está configurado; sin backend, se prepara un mensaje para WhatsApp.
-- Panel privado en admin.html: login por enlace de correo, inventario, publicación de obras, bandeja de consultas, programación/apertura/cierre de subastas y verificación de identidad/depósito.
+- Panel privado en admin.html: login por enlace de correo, carga de fotografías, inventario, publicación de obras, bandeja de consultas, programación/apertura/cierre de subastas y verificación de identidad/depósito.
 - Subastas: registro por correo OTP, ofertas autenticadas con validación atómica, incremento mínimo y extensión anti-sniping. El historial público no revela la identidad del pujador.
 - Se retiraron las obras ficticias de demostración y las cantidades inventadas.
 
@@ -19,7 +19,7 @@ El código ya está preparado, pero no puede guardar datos ni autenticar partici
 5. En SQL Editor ejecutar: insert into public.admin_users(user_id) values('UUID_DEL_ADMIN');
 6. Completar morfo-config.js con Project URL y anon/public key. No poner la service_role key en ningún archivo público.
 7. Entrar a admin.html, iniciar sesión y aprobar la ficha de El testigo. La obra inicial está creada con published=false deliberadamente; publicarla cuando la artista valide su ficha.
-8. Para nuevas obras, subir la fotografía original a un hosting público seguro y guardar su URL en el inventario.
+8. Para nuevas obras, cargar la fotografía original desde admin.html; se guarda en el bucket público morfo-artworks de Supabase Storage y se enlaza automáticamente al inventario.
 9. Configurar en morfo-config.js el número oficial de WhatsApp de MORFO, con código de país y solo dígitos.
 
 ## Operación de subastas
