@@ -74,7 +74,7 @@ grant select on public.auction_bid_history to anon,authenticated;
 
 
 -- Public read-only bid history omits bidder identity.
-create or replace view public.auction_bid_history as
+create or replace view public.auction_bid_history with (security_invoker=false) as
 select auction_id,amount_mxn,created_at from public.auction_bids;
 grant select on public.auction_bid_history to anon,authenticated;
 
@@ -187,3 +187,5 @@ revoke all on function public.confirm_auction_payment(uuid) from public;
 revoke all on function public.expire_auction_payment(uuid) from public;
 grant execute on function public.confirm_auction_payment(uuid) to authenticated;
 grant execute on function public.expire_auction_payment(uuid) to authenticated;
+
+alter view public.auction_bid_history set (security_invoker=false);
