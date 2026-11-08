@@ -36,3 +36,38 @@ return query select v_bid_id,a.current_bid_mxn,a.ends_at;
 end;$$;
 revoke all on function public.place_bid(uuid,numeric) from public;grant execute on function public.place_bid(uuid,numeric) to authenticated;
 insert into public.artworks(slug,title,description,image_path,year,status,published,sort_order) values('el-testigo','El testigo','Pintura original de MORFO. Ficha técnica y disponibilidad pendientes de confirmación.','1ra pintura.jpg',2026,'exhibition',false,1) on conflict(slug) do nothing;
+
+
+-- Public web permissions; RLS remains the authorization boundary.
+grant usage on schema public to anon,authenticated;
+grant select on public.artworks to anon,authenticated;
+grant insert on public.inquiries to anon,authenticated;
+grant select,update on public.inquiries to authenticated;
+grant select,insert,update,delete on public.artworks to authenticated;
+grant select on public.profiles to authenticated;
+grant update on public.profiles to authenticated;
+grant select,insert,update,delete on public.auctions to authenticated;
+grant select on public.auction_bids to anon,authenticated;
+grant execute on function public.is_morfo_admin() to authenticated;
+
+-- Create a private bidder profile when a user registers by email OTP.
+create or replace function public.handle_new_morfo_user()
+returns trigger language plpgsql security definer set search_path=public
+as $$
+begin
+ insert into public.profiles(id,display_alias,email)
+ values(new.id,coalesce(nullif(new.raw_user_meta_data->>'display_alias',''),split_part(coalesce(new.email,'coleccionista'),'@',1)),new.email)
+ on conflict(id) do nothing;
+ return new;
+end; $$;
+drop trigger if exists on_auth_user_created_morfo on auth.users;
+create trigger on_auth_user_created_morfo after insert on auth.users
+for each row execute procedure public.handle_new_morfo_user();
+
+-- Keep bidder identity private; public history contains amounts and timestamps only.
+drop policy if exists "public sees bid amounts" on public.auction_bids;
+create policy "bidders and admins see bids" on public.auction_bids for select
+using(bidder_id=auth.uid() or public.is_morfo_admin());
+create or replace view public.auction_bid_history with (security_invoker=true) as
+select auction_id,amount_mxn,created_at from public.auction_bids;
+grant select on public.auction_bid_history to anon,authenticated;
