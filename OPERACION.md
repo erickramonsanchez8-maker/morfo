@@ -24,15 +24,15 @@ El código ya está preparado, pero no puede guardar datos ni autenticar partici
 
 ## Operación de subastas
 - No crear una subasta sin obra real, precio de reserva, incremento, fechas y reglas aprobadas.
-- Programarla desde admin.html. Abrirla desde el panel al momento de inicio.
+- Programarla desde admin.html; el cierre se propone por defecto a siete días del inicio. Abrirla desde el panel al momento de inicio.
 - Los participantes entran por correo OTP. La función place_bid exige identity_verified=true y deposit_verified=true, valida el cierre y el importe mínimo, bloquea la fila para evitar pujas simultáneas inconsistentes y aplica extensión anti-sniping.
-- El panel permite cerrar la subasta después de su hora de cierre y registra al mejor postor si alcanzó la reserva.
+- El panel permite cerrar la subasta después de su hora de cierre y registra al mejor postor si alcanzó la reserva. El ganador tiene 72 horas para pagar; el panel permite confirmar el pago o marcar el impago una vez vencido el plazo. La obra solo pasa a Vendida al confirmar el pago.
 - Antes de marcar una obra como vendida hay que confirmar el pago real.
 
 ## Pendientes externos que no se pueden inventar
 - Supabase URL y anon key: falta crear el proyecto.
 - WhatsApp público: no se proporcionó un número oficial.
-- Cobro: MORFO todavía no eligió un procesador ni cuenta comercial. No hay checkout ni cobro automatizado conectado.
+- Cobro: MORFO todavía no eligió un procesador ni cuenta comercial. No hay checkout ni cobro automatizado conectado; la confirmación de pago es manual y solo debe hacerse después de verificar el ingreso real.
 - Verificar con la artista título, año, técnica, soporte, medidas, estado, precio y disponibilidad de cada obra.
 - Aprobar términos de compra/subasta, privacidad, certificados, embalaje, envío asegurado, devoluciones y obligaciones fiscales.
 
