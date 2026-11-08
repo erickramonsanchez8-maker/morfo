@@ -117,3 +117,18 @@ with check(bucket_id='morfo-artworks' and public.is_morfo_admin());
 drop policy if exists "morfo admins delete artwork images" on storage.objects;
 create policy "morfo admins delete artwork images" on storage.objects for delete
 using(bucket_id='morfo-artworks' and public.is_morfo_admin());
+
+create or replace function public.validate_morfo_auction_artwork()
+returns trigger language plpgsql security definer set search_path=public
+as $$
+declare a public.artworks%rowtype;
+begin
+ select * into a from public.artworks where id=new.artwork_id for update;
+ if not found or not a.published or a.status in ('sold','archived') then
+  raise exception 'ARTWORK_NOT_ELIGIBLE';
+ end if;
+ return new;
+end; $$;
+drop trigger if exists validate_morfo_auction_artwork on public.auctions;
+create trigger validate_morfo_auction_artwork before insert or update of artwork_id on public.auctions
+for each row execute procedure public.validate_morfo_auction_artwork();
