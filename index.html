@@ -7,8 +7,8 @@
   <meta name="description" content="MORFO art: galería de pintura y obra visual. Caras que no buscan ser bellas, buscan ser honestas.">
   <meta property="og:title" content="MORFO art">
   <meta property="og:description" content="Galería de arte MORFO.">
-  <meta property="og:image" content="WhatsApp_Image_2026-10-19_at_4.53.13_PM-removebg-preview.png">
-  <link rel="icon" type="image/png" href="WhatsApp_Image_2026-10-19_at_4.53.13_PM-removebg-preview.png">
+  <meta property="og:image" content="logo-morfo.png">
+  <link rel="icon" type="image/png" href="logo-morfo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -296,6 +296,43 @@
     }
     .viewer-caption p { margin: 0; color: #cfc5c0; font-size: .85rem; }
 
+    /* Animaciones discretas: movimiento suave, sin distraer de las obras. */
+    @keyframes morfo-rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes morfo-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+    .hero-inner > div:first-child { animation: morfo-rise .75s ease both; }
+    .hero-logo { animation: morfo-rise .9s .12s ease both; }
+    .hero-logo img { animation: morfo-float 7s 1s ease-in-out infinite; }
+    .art-open { overflow: hidden; }
+    .art-open img { transition: transform .45s ease, filter .45s ease; }
+    .art-open:hover img, .art-open:focus-visible img {
+      transform: scale(1.035);
+      filter: saturate(1.06);
+    }
+    .art-card { transition: transform .3s ease; }
+    .art-card:hover { transform: translateY(-4px); }
+    .button { transition: background .2s ease, transform .2s ease, box-shadow .2s ease; }
+    .button:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(53, 8, 23, .16); }
+    .reveal-ready .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .reveal-ready .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-inner > div:first-child, .hero-logo, .hero-logo img { animation: none !important; }
+      .reveal-ready .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
+      .art-open img, .art-card, .button { transition: none; }
+    }
+
     @media (max-width: 760px) {
       .wrap { width: min(100% - 30px, 600px); }
       .section { padding: 58px 0; }
@@ -336,7 +373,7 @@
   <header class="site-header">
     <div class="wrap header-inner">
       <a class="brand" href="#inicio" aria-label="MORFO art">
-        <img src="WhatsApp_Image_2026-10-19_at_4.53.13_PM-removebg-preview.png" alt="">
+        <img src="logo-morfo.png" alt="">
         <span>MORFO <small>art</small></span>
       </a>
       <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" data-es="Menú" data-en="Menu">Menú</button>
@@ -362,7 +399,7 @@
           <a class="button" href="#obras" data-es="Ver obras" data-en="View works">Ver obras</a>
         </div>
         <div class="hero-logo">
-          <img src="WhatsApp_Image_2026-10-19_at_4.53.13_PM-removebg-preview.png" width="1024" height="1024" alt="Logotipo de MORFO art">
+          <img src="logo-morfo.png" width="1024" height="1024" alt="Logotipo de MORFO art">
         </div>
       </div>
     </section>
@@ -410,7 +447,7 @@
 
   <footer>
     <div class="wrap footer-inner">
-      <a class="brand" href="#inicio"><img src="WhatsApp_Image_2026-10-19_at_4.53.13_PM-removebg-preview.png" alt=""><span>MORFO <small>art</small></span></a>
+      <a class="brand" href="#inicio"><img src="logo-morfo.png" alt=""><span>MORFO <small>art</small></span></a>
       <span>© <span id="year"></span> MORFO art</span>
     </div>
   </footer>
@@ -507,6 +544,26 @@
         var opener = document.querySelector("[data-art-index='0']");
         if (opener) opener.focus();
       });
+
+      /* Aparición suave al entrar en pantalla; sin librerías externas. */
+      var revealTargets = document.querySelectorAll(
+        ".section-title, .section-intro, .art-card, .artist-quote, .artist-text, .auction-status"
+      );
+      if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("reveal-ready");
+        var revealObserver = new IntersectionObserver(function (entries, observer) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        revealTargets.forEach(function (element) {
+          element.classList.add("reveal-on-scroll");
+          revealObserver.observe(element);
+        });
+      }
 
       document.getElementById("year").textContent = new Date().getFullYear();
       setLanguage("es");
