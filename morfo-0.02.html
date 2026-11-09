@@ -143,10 +143,6 @@
       width: min(390px, 100%);
       margin: 0 auto;
     }
-    .hero-feature { display: grid; justify-items: center; gap: 18px; width: 100%; max-width: 460px; margin: 0 auto; }
-    .hero-artwork { width: 100%; height: min(54vw, 430px); min-height: 280px; display: grid; place-items: center; background: #21151b; border: 1px solid rgba(201,166,92,.35); overflow: hidden; }
-    .hero-artwork img { width: 100%; height: 100%; object-fit: contain; }
-    .hero-logo { width: min(190px, 42%); margin: 0 auto; }
     .hero-logo img { width: 100%; height: auto; object-fit: contain; }
     .button {
       display: inline-flex;
@@ -358,8 +354,7 @@
       .main-nav.is-open { display: flex; }
       .hero { padding: 48px 0 58px; }
       .hero-inner { grid-template-columns: 1fr; gap: 30px; }
-      .hero-logo { width: min(150px, 42vw); grid-row: auto; }
-      .hero-artwork { height: min(82vw, 420px); }
+      .hero-logo { width: min(260px, 72vw); grid-row: 1; }
       .hero h1 { font-size: clamp(3.1rem, 15vw, 4.7rem); }
       .artist-inner { grid-template-columns: 1fr; gap: 24px; }
       .art-grid { grid-template-columns: 1fr; }
@@ -403,13 +398,8 @@
           <p class="hero-copy" data-es="MORFO explora el rostro, el color y las emociones a través de la pintura." data-en="MORFO explores the human face, color and emotion through painting.">MORFO explora el rostro, el color y las emociones a través de la pintura.</p>
           <a class="button" href="#obras" data-es="Ver obras" data-en="View works">Ver obras</a>
         </div>
-        <div class="hero-feature">
-          <div class="hero-artwork">
-            <img src="https://raw.githubusercontent.com/erickramonsanchez8-maker/morfo/main/1ra%20pintura.jpg" alt="El vigilante, pintura original de MORFO" fetchpriority="high">
-          </div>
-          <div class="hero-logo">
-            <img src="https://raw.githubusercontent.com/erickramonsanchez8-maker/morfo/main/logo-morfo.png" width="1024" height="1024" alt="Logotipo de MORFO art">
-          </div>
+        <div class="hero-logo">
+          <img src="logo-morfo.png" width="1024" height="1024" alt="Logotipo de MORFO art">
         </div>
       </div>
     </section>
@@ -421,12 +411,12 @@
         <div class="art-grid" id="art-grid">
           <article class="art-card">
             <button class="art-open" type="button" data-art-index="0" aria-label="Ver El vigilante">
-              <img src="https://raw.githubusercontent.com/erickramonsanchez8-maker/morfo/main/1ra%20pintura.jpg" alt="El vigilante, pintura original de MORFO" loading="lazy">
+              <img src="1ra pintura.jpg" alt="El vigilante" loading="lazy">
             </button>
             <div class="art-copy">
               <h3 class="art-title">El vigilante</h3>
               <p class="art-status" data-es="En exposición" data-en="On exhibition">En exposición</p>
-              <p class="art-note" data-es="Dos ojos rojos, intensos y desiguales, observan desde lados opuestos, como si una parte vigilara y la otra juzgara. El trazo negro es agresivo, casi como un grito, mientras la línea roja que atraviesa toda la obra funciona como una herida abierta que no termina de cerrar. Es una pieza sobre la furia contenida, sobre eso que sentimos por dentro pero no decimos en voz alta. El fondo en blanco, negro y gris da la sensación de ruido mental, de pensamientos que se atropellan." data-en="Two intense, uneven red eyes watch from opposite sides, as if one part were keeping watch while the other judged. The aggressive black stroke is almost a scream, while the red line crossing the entire work acts like an open wound that never quite closes. It is a piece about contained fury, about what we feel inside but do not say aloud. The white, black and gray background evokes mental noise, thoughts colliding with one another.">Dos ojos rojos, intensos y desiguales, observan desde lados opuestos, como si una parte vigilara y la otra juzgara. El trazo negro es agresivo, casi como un grito, mientras la línea roja que atraviesa toda la obra funciona como una herida abierta que no termina de cerrar. Es una pieza sobre la furia contenida, sobre eso que sentimos por dentro pero no decimos en voz alta. El fondo en blanco, negro y gris da la sensación de ruido mental, de pensamientos que se atropellan.</p>
+              <p class="art-note" data-es="Ficha técnica en actualización." data-en="Artwork details are being updated.">Ficha técnica en actualización.</p>
             </div>
           </article>
         </div>
@@ -465,7 +455,7 @@
   <dialog class="viewer" id="viewer" aria-labelledby="viewer-title">
     <div class="viewer-inner">
       <button class="viewer-close" id="viewer-close" type="button" aria-label="Cerrar">×</button>
-      <img class="viewer-image" id="viewer-image" src="https://raw.githubusercontent.com/erickramonsanchez8-maker/morfo/main/1ra%20pintura.jpg" alt="El vigilante">
+      <img class="viewer-image" id="viewer-image" src="1ra pintura.jpg" alt="El vigilante">
       <div class="viewer-caption">
         <h2 id="viewer-title">El vigilante</h2>
         <p data-es="En exposición" data-en="On exhibition">En exposición</p>
@@ -480,7 +470,7 @@
       var language = "es";
       var artwork = {
         title: "El vigilante",
-        image: "https://raw.githubusercontent.com/erickramonsanchez8-maker/morfo/main/1ra%20pintura.jpg",
+        image: "1ra pintura.jpg",
         status: { es: "En exposición", en: "On exhibition" },
         alt: { es: "El vigilante, obra de MORFO", en: "El vigilante, artwork by MORFO" }
       };
