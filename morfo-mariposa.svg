@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-labelledby="title desc">
+<title id="title">MORFO — mariposa</title><desc id="desc">Mariposa simétrica en guinda y oro antiguo.</desc>
+<defs>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F3DDA8"/><stop offset=".45" stop-color="#C9A65C"/><stop offset="1" stop-color="#8D642D"/></linearGradient>
+ <linearGradient id="wing" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#76213D"/><stop offset=".55" stop-color="#5A1028"/><stop offset="1" stop-color="#350817"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
+</defs>
+<g transform="translate(0 2)">
+ <ellipse cx="320" cy="315" rx="9" ry="130" fill="#16050B" opacity=".5" filter="url(#shadow)"/>
+ <g stroke="url(#gold)" stroke-width="5" stroke-linejoin="round">
+  <path fill="url(#wing)" d="M310 290 C270 222 178 104 86 106 C78 188 120 278 223 306 C257 315 286 306 310 290Z"/>
+  <path fill="url(#wing)" d="M330 290 C370 222 462 104 554 106 C562 188 520 278 417 306 C383 315 354 306 330 290Z"/>
+  <path fill="url(#wing)" d="M309 321 C247 320 160 346 139 433 C197 472 270 452 309 351Z"/>
+  <path fill="url(#wing)" d="M331 321 C393 320 480 346 501 433 C443 472 370 452 331 351Z"/>
+ </g>
+ <g fill="none" stroke="#C9A65C" stroke-width="3" opacity=".9">
+  <path d="M304 280 C244 220 163 151 111 137 C126 215 190 276 285 298"/>
+  <path d="M336 280 C396 220 477 151 529 137 C514 215 450 276 355 298"/>
+  <path d="M298 337 C244 352 194 388 157 425"/>
+  <path d="M342 337 C396 352 446 388 483 425"/>
+ </g>
+ <path d="M320 202 C305 175 287 160 268 151 M320 202 C335 175 353 160 372 151" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="round"/>
+ <path d="M320 196 C307 235 308 310 320 390 C332 310 333 235 320 196Z" fill="url(#gold)" stroke="#F3DDA8" stroke-width="2"/>
+ <circle cx="320" cy="191" r="10" fill="url(#gold)"/>
+</g>
+</svg>
