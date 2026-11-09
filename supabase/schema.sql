@@ -152,7 +152,7 @@ begin
   payment_status=case when v_winner is null then 'not_due' else 'pending' end,
   payment_deadline_at=case when v_winner is null then null else now()+interval '72 hours' end
  where id=a.id;
- update public.artworks set status='available',updated_at=now() where id=a.artwork_id;
+ update public.artworks set status=case when v_winner is null then 'available' else 'auction' end,updated_at=now() where id=a.artwork_id;
  return v_winner;
 end; $$;
 
